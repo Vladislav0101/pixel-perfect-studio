@@ -7,20 +7,22 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
+import { supabase } from "@/lib/supabaseClient";
 
 const contactSchema = z.object({
-  name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
-  email: z.string().trim().email("Please enter a valid email").max(255, "Email must be less than 255 characters"),
-  company: z.string().max(100, "Company name must be less than 100 characters").optional(),
-  message: z.string().trim().min(10, "Please provide more details about your project").max(2000, "Message must be less than 2000 characters"),
+  name: z.string().trim().min(1, "Имя обязательно").max(100, "Имя должно быть менее 100 символов"),
+  email: z.string().trim().email("Пожалуйста, введите действительный email").max(255, "Email должен быть менее 255 символов"),
+  company: z.string().max(100, "Название компании должно быть менее 100 символов").optional(),
+  service: z.string().max(100, "Услуга должна быть менее 100 символов").optional(),
+  message: z.string().trim().min(10, "Пожалуйста, предоставьте больше деталей о вашем проекте").max(2000, "Сообщение должно быть менее 2000 символов").optional(),
 });
 
 const services = [
-  "Custom Website",
-  "Landing Page",
-  "Website Redesign",
-  "SEO & Performance",
-  "Other",
+  "Индивидуальный сайт",
+  "Лендинг",
+  "Редизайн сайта",
+  "SEO и производительность",
+  "Другое",
 ];
 
 export default function Contact() {
@@ -50,15 +52,34 @@ export default function Contact() {
     setErrors({});
 
     try {
-      contactSchema.parse(formData);
-      
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const parsed = contactSchema.parse({
+        name: formData.name,
+        email: formData.email,
+        company: formData.company || undefined,
+        service: formData.service || undefined,
+        message: formData.message,
+      });
+
+      const { error: insertError } = await supabase
+        .from("ProjectRequest")
+        .insert([
+          {
+            name: parsed.name,
+            email: parsed.email,
+            company: parsed.company ?? null,
+            service: parsed.service ?? null,
+            message: parsed.message ?? null,
+          },
+        ]);
+
+      if (insertError) {
+        throw insertError;
+      }
       
       setIsSubmitted(true);
       toast({
-        title: "Message sent!",
-        description: "We'll get back to you within 24 hours.",
+        title: "Сообщение отправлено!",
+        description: "Мы свяжемся с вами в течение 24 часов.",
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -69,6 +90,17 @@ export default function Contact() {
           }
         });
         setErrors(newErrors);
+      } else {
+        const message =
+          error && typeof error === "object" && "message" in error
+            ? String((error as { message: unknown }).message)
+            : "Не удалось отправить сообщение. Попробуйте ещё раз.";
+
+        toast({
+          variant: "destructive",
+          title: "Ошибка отправки",
+          description: message,
+        });
       }
     } finally {
       setIsSubmitting(false);
@@ -86,12 +118,12 @@ export default function Contact() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="text-primary font-semibold text-sm uppercase tracking-wider">Contact</span>
+              <span className="text-primary font-semibold text-sm uppercase tracking-wider">Контакты</span>
               <h1 className="text-headline mt-4 mb-6">
-                Let's Start a Project Together
+                Давайте начнём проект вместе
               </h1>
               <p className="text-body-lg mb-10">
-                Tell us about your project and we'll get back to you within 24 hours with a free consultation and quote.
+                Расскажите нам о вашем проекте, и мы свяжемся с вами в течение 24 часов с бесплатной консультацией и предложением.
               </p>
 
               <div className="space-y-6 mb-10">
@@ -100,28 +132,28 @@ export default function Contact() {
                     <Mail className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <p className="font-semibold mb-1">Email us directly</p>
-                    <a href="mailto:hello@nexusstudio.dev" className="text-muted-foreground hover:text-primary transition-colors">
-                      hello@nexusstudio.dev
+                    <p className="font-semibold mb-1">Напишите нам напрямую</p>
+                    <a href="mailto:hello@vectorstudio.dev" className="text-muted-foreground hover:text-primary transition-colors">
+                      hello@vectorstudio.dev
                     </a>
                   </div>
                 </div>
               </div>
 
               <div className="p-6 rounded-xl bg-card border border-border">
-                <h3 className="font-display font-bold mb-4">What happens next?</h3>
+                <h3 className="font-display font-bold mb-4">Что будет дальше?</h3>
                 <ol className="space-y-3 text-sm text-muted-foreground">
                   <li className="flex items-start gap-3">
                     <span className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 text-primary font-bold text-xs">1</span>
-                    We review your project details
+                    Мы изучаем детали вашего проекта
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 text-primary font-bold text-xs">2</span>
-                    Schedule a free discovery call
+                    Назначаем бесплатную консультацию
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 text-primary font-bold text-xs">3</span>
-                    Receive a detailed proposal and quote
+                    Получаете детальное предложение и расчёт
                   </li>
                 </ol>
               </div>
@@ -139,9 +171,9 @@ export default function Contact() {
                     <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-6">
                       <CheckCircle className="w-8 h-8 text-primary" />
                     </div>
-                    <h2 className="text-2xl font-display font-bold mb-4">Message Sent!</h2>
+                    <h2 className="text-2xl font-display font-bold mb-4">Сообщение отправлено!</h2>
                     <p className="text-muted-foreground mb-6">
-                      Thanks for reaching out. We'll get back to you within 24 hours.
+                      Спасибо за обращение. Мы свяжемся с вами в течение 24 часов.
                     </p>
                     <Button
                       variant="hero"
@@ -150,7 +182,7 @@ export default function Contact() {
                         setFormData({ name: "", email: "", company: "", service: "", message: "" });
                       }}
                     >
-                      Send Another Message
+                      Отправить ещё одно сообщение
                     </Button>
                   </div>
                 </div>
@@ -160,14 +192,14 @@ export default function Contact() {
                     {/* Name */}
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium mb-2">
-                        Your Name *
+                        Ваше имя *
                       </label>
                       <Input
                         id="name"
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="John Smith"
+                        placeholder="Иван Иванов"
                         className={errors.name ? "border-destructive" : ""}
                       />
                       {errors.name && <p className="text-destructive text-sm mt-1">{errors.name}</p>}
@@ -176,7 +208,7 @@ export default function Contact() {
                     {/* Email */}
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium mb-2">
-                        Email Address *
+                        Email адрес *
                       </label>
                       <Input
                         id="email"
@@ -184,7 +216,7 @@ export default function Contact() {
                         type="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="john@company.com"
+                        placeholder="ivan@company.ru"
                         className={errors.email ? "border-destructive" : ""}
                       />
                       {errors.email && <p className="text-destructive text-sm mt-1">{errors.email}</p>}
@@ -193,21 +225,21 @@ export default function Contact() {
                     {/* Company */}
                     <div>
                       <label htmlFor="company" className="block text-sm font-medium mb-2">
-                        Company Name
+                        Название компании
                       </label>
                       <Input
                         id="company"
                         name="company"
                         value={formData.company}
                         onChange={handleChange}
-                        placeholder="Acme Inc."
+                        placeholder="ООО Пример Компании"
                       />
                     </div>
 
                     {/* Service */}
                     <div>
                       <label htmlFor="service" className="block text-sm font-medium mb-2">
-                        Service Interested In
+                        Интересующая услуга
                       </label>
                       <select
                         id="service"
@@ -216,7 +248,7 @@ export default function Contact() {
                         onChange={handleChange}
                         className="flex h-11 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       >
-                        <option value="">Select a service...</option>
+                        <option value="">Выберите услугу...</option>
                         {services.map((service) => (
                           <option key={service} value={service}>
                             {service}
@@ -228,14 +260,14 @@ export default function Contact() {
                     {/* Message */}
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium mb-2">
-                        Tell Us About Your Project *
+                        Расскажите о вашем проекте *
                       </label>
                       <Textarea
                         id="message"
                         name="message"
                         value={formData.message}
                         onChange={handleChange}
-                        placeholder="Describe your project, goals, and any specific requirements..."
+                        placeholder="Опишите ваш проект, цели и любые специфические требования..."
                         rows={5}
                         className={errors.message ? "border-destructive" : ""}
                       />
@@ -250,10 +282,10 @@ export default function Contact() {
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (
-                        "Sending..."
+                        "Отправка..."
                       ) : (
                         <>
-                          Send Message
+                          Отправить сообщение
                           <ArrowRight className="ml-2" />
                         </>
                       )}
