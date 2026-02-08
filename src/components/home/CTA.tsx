@@ -1,12 +1,24 @@
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
-export function CTA() {
+interface SecondaryButton {
+  text: string;
+  href: string;
+}
+
+interface CTAProps {
+  title: string;
+  description: string;
+  buttonText: string;
+  secondaryButton?: SecondaryButton;
+}
+
+export function CTA({ title, description, buttonText, secondaryButton }: CTAProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
     <section ref={ref} className="section-spacing">
@@ -20,34 +32,36 @@ export function CTA() {
           {/* Background */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-primary/80" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
-          
+
           {/* Content */}
-          <div className="relative z-10 px-8 py-16 md:px-16 md:py-24 text-center">
+          <div className="relative z-10 px-8 py-8 sm:py-16 md:px-16 md:py-24 text-center">
             <h2 className="text-3xl md:text-5xl font-display font-bold text-primary-foreground mb-6">
-              Ready to Transform Your Online Presence?
+              {title}
             </h2>
             <p className="text-primary-foreground/90 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-              Let's build a website that works as hard as you do. Get a free consultation and quote within 24 hours.
+              {description}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button 
-                size="xl" 
-                className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+              <Button
+                size="xl"
+                className="w-full sm:w-auto bg-primary-foreground text-primary hover:bg-primary-foreground/90"
                 asChild
               >
                 <Link to="/contact">
-                  Start Your Project
+                  {buttonText}
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
-              <Button 
-                variant="heroOutline" 
-                size="xl" 
-                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
-                asChild
-              >
-                <Link to="/portfolio">See Our Work</Link>
-              </Button>
+              {secondaryButton && (
+                <Button
+                  variant="heroOutline"
+                  size="xl"
+                  className="w-full sm:w-auto border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                  asChild
+                >
+                  <Link to={secondaryButton.href}>{secondaryButton.text}</Link>
+                </Button>
+              )}
             </div>
           </div>
         </motion.div>

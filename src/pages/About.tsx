@@ -2,37 +2,36 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Heart, Zap, Shield, Users } from "lucide-react";
-import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
+import { CTA } from "@/components/home/CTA";
 
 const values = [
   {
     icon: Heart,
-    title: "Craft Over Volume",
-    description: "We take on fewer projects to deliver exceptional quality. Every client gets our full attention.",
+    title: "Фокус на качестве",
+    description: "Мы уделяем внимание каждой детали – от архитектуры до интерфейса – чтобы результат был стабильным, удобным и долговечным.",
   },
   {
     icon: Zap,
-    title: "Speed Without Shortcuts",
-    description: "Fast turnaround times without compromising on code quality or design standards.",
+    title: "Скорость без компромиссов",
+    description: "Быстрые сроки выполнения без ущерба для качества кода или стандартов дизайна.",
   },
   {
     icon: Shield,
-    title: "Transparent Process",
-    description: "No surprises. Clear communication, fixed pricing, and regular progress updates.",
+    title: "Прозрачный процесс",
+    description: "Никаких сюрпризов. Чёткая коммуникация, фиксированные цены и регулярные обновления о прогрессе.",
   },
   {
     icon: Users,
-    title: "Partnership Mindset",
-    description: "We're not just vendors—we're invested in your success and available when you need us.",
+    title: "Партнёрский подход",
+    description: "Мы не просто подрядчики – мы заинтересованы в вашем успехе и доступны, когда мы вам необходимы.",
   },
 ];
 
 const stats = [
-  { value: "50+", label: "Projects Delivered" },
-  { value: "98%", label: "Client Satisfaction" },
-  { value: "2 Weeks", label: "Average Delivery" },
-  { value: "5 Years", label: "In Business" },
+  { value: "10+", label: "Реализованных проектов" },
+  { value: "98%", label: "Удовлетворённость клиентов" },
+  { value: "2 недели", label: "Средний срок доставки" },
+  { value: "2 года", label: "В бизнесе" },
 ];
 
 export default function About() {
@@ -44,7 +43,7 @@ export default function About() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24">
+      <section className="pt-28 sm:pt-32 pb-10 sm:pb-16 md:pt-40 md:pb-24">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -52,20 +51,20 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">About Us</span>
-            <h1 className="text-headline mt-4 mb-6">
-              Small Team. Big Impact.
+            <span className="text-small-headline">О нас</span>
+            <h1 className="text-headline sm:mt-4 mb-6">
+              Малая команда. <br /> Большое влияние.
             </h1>
             <p className="text-body-lg">
-              We're a focused web development studio that helps businesses build effective online presences. 
-              No bloated agencies, no endless meetings—just skilled people doing great work.
+              Мы – сфокусированная студия веб-разработки, которая помогает бизнесу создавать эффективное онлайн-присутствие.
+              Никаких раздутых агентств, никаких бесконечных встреч – просто опытные люди, которые делают свою работу.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Story */}
-      <section className="pb-20">
+      <section className="pb-12 sm:pb-20">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <motion.div
@@ -74,10 +73,10 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 relative overflow-hidden">
+              <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-blue/15 relative overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-32 h-32 rounded-2xl bg-primary flex items-center justify-center">
-                    <span className="text-primary-foreground font-display font-bold text-5xl">N</span>
+                    <span className="text-primary-foreground font-display font-bold text-5xl">V</span>
                   </div>
                 </div>
                 {/* Decorative elements */}
@@ -92,20 +91,16 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-title mb-6">Our Story</h2>
+              <h2 className="text-title mb-3 sm:mb-6">Наша история</h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Nexus started with a simple observation: most small businesses were getting terrible websites. 
-                  Either expensive agency work that took months, or cheap templates that looked like everyone else's.
+                  Vector начался с простого наблюдения: малому бизнесу часто не хватает сайтов, которые одновременно выглядят профессионально и эффективно решают задачи роста. Мы увидели запрос на качественные, продуманные цифровые решения без лишней сложности.
                 </p>
                 <p>
-                  We believed there was a better way. A small team of experienced developers and designers 
-                  who could deliver premium quality at reasonable prices, without the overhead.
+                  С самого начала мы сделали ставку на компактную команду опытных разработчиков и дизайнеров. Это позволяет нам работать гибко, сохранять высокий уровень качества и предлагать разумные сроки и бюджеты.
                 </p>
                 <p>
-                  Today, we work with businesses across industries—from local coffee shops to tech startups. 
-                  Our approach hasn't changed: listen carefully, work efficiently, and deliver websites that 
-                  actually help businesses grow.
+                  Vector начался с простого наблюдения: малому бизнесу часто не хватает сайтов, которые одновременно выглядят профессионально и эффективно решают задачи роста. Мы увидели запрос на качественные, продуманные цифровые решения без лишней сложности.
                 </p>
               </div>
             </motion.div>
@@ -120,10 +115,10 @@ export default function About() {
             initial={{ opacity: 0, y: 30 }}
             animate={valuesInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-8 sm:mb-16"
           >
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">Our Values</span>
-            <h2 className="text-title mt-4">How We Work</h2>
+            <span className="text-small-headline">Наши ценности</span>
+            <h2 className="text-headline sm:mt-4">Как мы работаем</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -133,10 +128,10 @@ export default function About() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={valuesInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="p-6 rounded-xl bg-background border border-border text-center"
+                className="p-4 sm:p-6 rounded-xl bg-background border border-border text-center"
               >
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <value.icon className="w-7 h-7 text-primary" />
+                <div className="w-10 sm:w-14 h-10 sm:h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-4">
+                  <value.icon className="w-5 sm:w-7 h-5 sm:h-7 text-primary" />
                 </div>
                 <h3 className="font-display font-bold mb-3">{value.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{value.description}</p>
@@ -149,7 +144,7 @@ export default function About() {
       {/* Stats */}
       <section ref={statsRef} className="section-spacing">
         <div className="container-custom">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid items-center grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -167,27 +162,11 @@ export default function About() {
       </section>
 
       {/* CTA */}
-      <section className="section-spacing bg-card">
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-2xl mx-auto"
-          >
-            <h2 className="text-title mb-6">
-              Let's Build Something Great
-            </h2>
-            <p className="text-body-lg mb-8">
-              Ready to work with a team that genuinely cares about your success? Let's talk.
-            </p>
-            <Button variant="hero" size="xl" asChild>
-              <Link to="/contact">Get in Touch</Link>
-            </Button>
-          </motion.div>
-        </div>
-      </section>
+      <CTA
+        title="Давайте создадим что-то великое"
+        description="Готовы работать с командой, которая искренне заботится о вашем успехе? Давайте поговорим."
+        buttonText="Связаться с нами"
+      />
     </Layout>
   );
 }

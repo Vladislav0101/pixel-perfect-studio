@@ -2,10 +2,38 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronDown, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useEffect, useState } from 'react';
 
 export function Hero() {
+  const [isServicesVisible, setIsServicesVisible] = useState(false);
+
+  useEffect(() => {
+    // Find the Services section by its data attribute
+    const servicesSection = document.querySelector('[data-services-section]') as HTMLElement;
+    if (!servicesSection) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsServicesVisible(true);
+          } else {
+            setIsServicesVisible(false);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(servicesSection);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-18 sm:pt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-18 sm:pt-20">
       <div className="container-custom relative z-10">
         <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
@@ -28,7 +56,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.1 }}
             className="grid text-display mb-6 gap-1 sm:gap-0"
           >
-            <span className="text-foreground">Наши <br className='block sm:hidden'/> Web-pешения</span>
+            <span className="text-foreground">Наши <br className='block sm:hidden' /> Web-pешения</span>
             <span className="text-gradient-primary">
               Масштабируют ваш бизнес
             </span>
@@ -88,37 +116,43 @@ export function Hero() {
       </div>
 
       {/* Scroll indicator - Desktop */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="hidden sm:block absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <div className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full flex items-start justify-center p-2">
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="w-1.5 h-1.5 bg-primary rounded-full"
-          />
-        </div>
-      </motion.div>
+      {!isServicesVisible && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ delay: 1.5 }}
+          className="hidden sm:block absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
+          <div className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full flex items-start justify-center p-2">
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-1.5 h-1.5 bg-primary rounded-full"
+            />
+          </div>
+        </motion.div>
+      )}
 
       {/* Scroll indicator - Mobile */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
-        className="sm:hidden absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <span className="text-xs text-muted-foreground font-light">Прокрутите вниз</span>
+      {!isServicesVisible && (
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="flex flex-col items-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ delay: 1.5 }}
+          className="sm:hidden absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
-          <ChevronDown className="w-5 h-5 text-primary" />
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="flex flex-col items-center relative"
+          >
+            <div className="w-[6px] h-[6px] top-1 absolute rounded-full bg-primary" />
+            <ChevronDown className="w-10 h-10 text-primary" />
+          </motion.div>
         </motion.div>
-      </motion.div>
+      )}
     </section>
   );
 }

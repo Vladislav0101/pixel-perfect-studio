@@ -8,71 +8,63 @@ import { Button } from "@/components/ui/button";
 const services = [
   {
     id: "custom",
-    title: "Custom Business Websites",
-    description: "A fully custom website designed around your brand and business goals. No templates, no compromises.",
+    title: "Индивидуальные веб-платформы",
+    description: "Полностью индивидуальная веб-платформа, разработанная с учётом ваших уникальных потребностей. Без шаблонов, без компромиссов.",
     features: [
-      "Custom design tailored to your brand",
-      "Responsive on all devices",
-      "SEO-optimized structure",
-      "Content management system",
-      "Analytics integration",
-      "Fast loading performance",
+      "Индивидуальный дизайн под ваши потребности",
+      "Адаптивность под все устройства", 
+      "Быстрая загрузка",
+      "SEO-оптимизированная структура",
     ],
-    timeline: "2-4 weeks",
-    startingPrice: "From $3,500",
+    timeline: "2-4 недели",
+    startingPrice: "$700",
   },
   {
     id: "landing",
-    title: "Landing Pages",
-    description: "High-converting landing pages designed to capture leads and drive specific actions. Perfect for campaigns.",
+    title: "Лендинги",
+    description: "Высоко-конверсионные лендинги, разработанные для привлечения лидов и призыву к действиям. Идеально для кампаний.",
     features: [
-      "Conversion-focused design",
-      "A/B testing ready",
-      "Form integration",
-      "Analytics & tracking",
-      "Mobile optimization",
-      "Fast 1-week turnaround",
+      "Дизайн, ориентированный на конверсию",
+      "Готовность к A/B тестированию",
+      "Интеграция форм",
+      "Быстрая разработка за 1 неделю",
     ],
-    timeline: "1 week",
-    startingPrice: "From $1,500",
+    timeline: "1 неделя",
+    startingPrice: "$500",
   },
   {
     id: "redesign",
-    title: "Website Redesign",
-    description: "Transform your outdated website into a modern, fast, and effective business tool.",
+    title: "Редизайн сайта",
+    description: "Превратите устаревший сайт в современный, быстрый и эффективный инструмент.",
     features: [
-      "Complete visual overhaul",
-      "Improved user experience",
-      "Performance optimization",
-      "Content migration",
-      "SEO preservation & improvement",
-      "Mobile-first approach",
+      "Полный визуальный редизайн и миграция контента",
+      "Улучшенный пользовательский опыт",
+      "Оптимизация производительности",
+      "Сохранение и улучшение SEO",
     ],
-    timeline: "2-3 weeks",
-    startingPrice: "From $2,500",
+    timeline: "2-3 недели",
+    startingPrice: "$300",
   },
   {
     id: "seo",
-    title: "SEO & Performance",
-    description: "Optimize your existing website for search engines and speed. Get found and keep visitors engaged.",
+    title: "SEO и Производительность",
+    description: "Оптимизируйте существующий сайт для поисковых систем и ускорьте его работоспособность.",
     features: [
-      "Technical SEO audit",
-      "Page speed optimization",
-      "Core Web Vitals improvement",
-      "Schema markup",
-      "Image optimization",
-      "Monthly reporting",
+      "Технический SEO-аудит",
+      "Оптимизация скорости страниц",
+      "Улучшение Core Web Vitals",
+      "Оптимизация изображений",
     ],
-    timeline: "Ongoing",
-    startingPrice: "From $500/mo",
+    timeline: "Постоянно",
+    startingPrice: "$200",
   },
 ];
 
 const addons = [
-  { name: "Maintenance Plan", price: "$150/mo" },
-  { name: "Content Writing", price: "$200/page" },
-  { name: "Photography", price: "Custom quote" },
-  { name: "Logo Design", price: "From $500" },
+  { name: "Обслуживание сайта", price: "$100/мес +" },
+  { name: "Написание контента", price: "$50/страница +" },
+  { name: "Фотографии / Контент", price: "Индивидуальный расчёт" },
+  { name: "Дизайн логотипа", price: "$200 +" },
 ];
 
 function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
@@ -88,31 +80,31 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="scroll-mt-32"
     >
-      <div className="p-8 md:p-10 rounded-2xl bg-card border border-border">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-8">
+      <div className="p-5 sm:p-8 md:p-10 rounded-2xl bg-card border border-border">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 sm:gap-8">
           <div className="flex-1">
-            <h2 className="text-title mb-4">{service.title}</h2>
-            <p className="text-body-lg mb-8">{service.description}</p>
-            
+            <h2 className="text-title-sm sm:text-title mb-4">{service.title}</h2>
+            <p className="text-body-sm sm:text-body-lg mb-6 sm:mb-8">{service.description}</p>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {service.features.map((feature) => (
-                <div key={feature} className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <Check className="w-3 h-3 text-primary" />
+                <div key={feature} className="flex gap-2 sm:gap-3">
+                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-blue/20 flex items-center justify-center flex-shrink-0">
+                    <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue" />
                   </div>
-                  <span className="text-sm text-muted-foreground">{feature}</span>
+                  <span className="text-xs sm:text-sm text-muted-foreground">{feature}</span>
                 </div>
               ))}
             </div>
           </div>
-          
+
           <div className="lg:w-64 flex-shrink-0">
             <div className="p-6 rounded-xl bg-muted/50 text-center">
-              <p className="text-sm text-muted-foreground mb-2">Starting at</p>
+              <p className="text-sm text-muted-foreground mb-2">Начиная от</p>
               <p className="text-2xl font-display font-bold text-primary mb-4">{service.startingPrice}</p>
-              <p className="text-sm text-muted-foreground mb-6">Timeline: {service.timeline}</p>
+              <p className="text-sm text-muted-foreground mb-6">Срок: {service.timeline}</p>
               <Button variant="hero" className="w-full" asChild>
-                <Link to="/contact">Get Quote</Link>
+                <Link to="/contact">Получить предложение</Link>
               </Button>
             </div>
           </div>
@@ -129,7 +121,7 @@ export default function ServicesPage() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24">
+      <section className="pt-28 sm:pt-32 pb-10 sm:pb-16 md:pt-40 md:pb-24">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -137,19 +129,19 @@ export default function ServicesPage() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">Our Services</span>
-            <h1 className="text-headline mt-4 mb-6">
-              Web Solutions That Drive Results
+            <span className="text-small-headline">Наши услуги</span>
+            <h1 className="text-headline sm:mt-4 mb-6">
+              Web-решения, которые дают результаты
             </h1>
-            <p className="text-body-lg">
-              From custom websites to performance optimization, we offer everything you need to succeed online.
+            <p className="text-body-lg font-light">
+              От индивидуальных сайтов до оптимизации производительности — мы предлагаем всё необходимое для онлайн успеха.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Services List */}
-      <section className="pb-20">
+      <section className="pb-12 sm:pb-20">
         <div className="container-custom space-y-8">
           {services.map((service, index) => (
             <ServiceCard key={service.id} service={service} index={index} />
@@ -164,10 +156,9 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={addonsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-12"
           >
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">Add-ons</span>
-            <h2 className="text-title mt-4">Additional Services</h2>
+            <h2 className="text-title">Дополнительные услуги</h2>
           </motion.div>
 
           <motion.div
@@ -177,7 +168,7 @@ export default function ServicesPage() {
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto"
           >
             {addons.map((addon) => (
-              <div key={addon.name} className="p-6 rounded-xl bg-background border border-border text-center">
+              <div key={addon.name} className="p-4 sm:p-6 rounded-xl bg-background border border-border text-center">
                 <p className="font-semibold mb-2">{addon.name}</p>
                 <p className="text-primary font-display font-bold">{addon.price}</p>
               </div>
@@ -188,11 +179,11 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={addonsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-center mt-12"
+            className="text-center mt-8 sm:mt-12"
           >
-            <Button variant="hero" size="xl" asChild>
+            <Button variant="hero" size="xl" asChild className="w-full sm:w-auto">
               <Link to="/contact">
-                Discuss Your Project
+                Обсудить ваш проект
                 <ArrowRight className="ml-2" />
               </Link>
             </Button>

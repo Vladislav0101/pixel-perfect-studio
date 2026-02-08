@@ -2,7 +2,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Hero } from "@/components/home/Hero";
 import { Services } from "@/components/home/Services";
 import { Process } from "@/components/home/Process";
-import { Testimonials } from "@/components/home/Testimonials";
+// import { Testimonials } from "@/components/home/Testimonials";
 import { CTA } from "@/components/home/CTA";
 
 const Index = () => {
@@ -11,8 +11,13 @@ const Index = () => {
       <Hero />
       <Services />
       <Process />
-      <Testimonials />
-      <CTA />
+      {/* <Testimonials /> */}
+      <CTA
+        title="Готовы обсудить ваш проект?"
+        description="Оставьте заявку и получите бесплатную консультацию и предложение в течение 24 часов."
+        buttonText="Начать проект"
+        secondaryButton={{ text: "Посмотреть наши работы", href: "/portfolio" }}
+      />
     </Layout>
   );
 };

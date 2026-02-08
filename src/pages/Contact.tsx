@@ -5,6 +5,13 @@ import { Mail, ArrowRight, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 import { supabase } from "@/lib/supabaseClient";
@@ -38,12 +45,17 @@ export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
+  };
+
+  const handleServiceChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, service: value }));
+    if (errors.service) setErrors((prev) => ({ ...prev, service: "" }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -109,7 +121,7 @@ export default function Contact() {
 
   return (
     <Layout>
-      <section className="pt-32 pb-20 md:pt-40">
+      <section className="pt-28 sm:pt-32 pb-10 sm:pb-20 md:pt-40 md:pb-24">
         <div className="container-custom">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Left side - Info */}
@@ -118,15 +130,15 @@ export default function Contact() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <span className="text-primary font-semibold text-sm uppercase tracking-wider">Контакты</span>
-              <h1 className="text-headline mt-4 mb-6">
+              <span className="text-small-headline">Контакты</span>
+              <h1 className="text-headline sm:mt-4 mb-6">
                 Давайте начнём проект вместе
               </h1>
-              <p className="text-body-lg mb-10">
+              <p className="text-body-lg mb-8 sm:mb-10">
                 Расскажите нам о вашем проекте, и мы свяжемся с вами в течение 24 часов с бесплатной консультацией и предложением.
               </p>
 
-              <div className="space-y-6 mb-10">
+              <div className="space-y-6 mb-8 sm:mb-10">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <Mail className="w-5 h-5 text-primary" />
@@ -187,7 +199,10 @@ export default function Contact() {
                   </div>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="p-8 rounded-2xl bg-card border border-border">
+                <form
+                  onSubmit={handleSubmit}
+                  className="p-8 rounded-2xl bg-card border border-border [&_input]:focus-visible:ring-0 [&_input]:focus-visible:ring-offset-0 [&_textarea]:focus-visible:ring-0 [&_textarea]:focus-visible:ring-offset-0 [&_button[type='submit']]:focus-visible:ring-0 [&_button[type='submit']]:focus-visible:ring-offset-0"
+                >
                   <div className="space-y-6">
                     {/* Name */}
                     <div>
@@ -236,25 +251,33 @@ export default function Contact() {
                       />
                     </div>
 
-                    {/* Service */}
+                    {/* Service - Dropdown */}
                     <div>
                       <label htmlFor="service" className="block text-sm font-medium mb-2">
                         Интересующая услуга
                       </label>
-                      <select
-                        id="service"
-                        name="service"
-                        value={formData.service}
-                        onChange={handleChange}
-                        className="flex h-11 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      <Select
+                        value={formData.service || undefined}
+                        onValueChange={handleServiceChange}
                       >
-                        <option value="">Выберите услугу...</option>
-                        {services.map((service) => (
-                          <option key={service} value={service}>
-                            {service}
-                          </option>
-                        ))}
-                      </select>
+                        <SelectTrigger
+                          id="service"
+                          className="h-11 w-full rounded-lg border border-input bg-background px-4 py-2 text-sm font-normal focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 [&>span]:line-clamp-1"
+                        >
+                          <SelectValue placeholder="Выберите услугу..." />
+                        </SelectTrigger>
+                        <SelectContent className="rounded-lg border border-border bg-popover shadow-lg">
+                          {services.map((service) => (
+                            <SelectItem
+                              key={service}
+                              value={service}
+                              className="rounded-md py-2.5 pl-3 pr-8 focus:bg-primary/10 focus:text-foreground focus:outline-none cursor-pointer"
+                            >
+                              {service}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
 
                     {/* Message */}

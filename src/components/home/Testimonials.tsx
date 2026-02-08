@@ -4,23 +4,23 @@ import { Star, Quote } from "lucide-react";
 
 const testimonials = [
   {
-    quote: "Nexus transformed our online presence completely. Our new website loads faster, looks incredible, and we've seen a 40% increase in leads within the first month.",
-    author: "Sarah Chen",
-    role: "Founder",
+    quote: "Vector полностью преобразил наше онлайн-присутствие. Наш новый сайт загружается быстрее, выглядит потрясающе, и мы увидели рост лидов на 40% в первый месяц.",
+    author: "Сара Чен",
+    role: "Основатель",
     company: "Bloom Wellness Studio",
     rating: 5,
   },
   {
-    quote: "Professional, responsive, and they truly understood our vision. The website they built exceeded our expectations and our clients love it.",
-    author: "Marcus Rodriguez",
-    role: "CEO",
+    quote: "Профессионально, отзывчиво, и они действительно поняли наше видение. Сайт, который они создали, превзошёл наши ожидания, и нашим клиентам он нравится.",
+    author: "Маркус Родригес",
+    role: "Генеральный директор",
     company: "TechStart Solutions",
     rating: 5,
   },
   {
-    quote: "Best investment we made for our business. The team was transparent about timelines and costs. No surprises, just great work delivered on time.",
-    author: "Emily Thompson",
-    role: "Owner",
+    quote: "Лучшая инвестиция, которую мы сделали для нашего бизнеса. Команда была прозрачна в отношении сроков и стоимости. Никаких сюрпризов, просто отличная работа, выполненная вовремя.",
+    author: "Эмили Томпсон",
+    role: "Владелец",
     company: "Artisan Coffee Co.",
     rating: 5,
   },
@@ -40,9 +40,9 @@ export function Testimonials() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">Testimonials</span>
+          <span className="text-primary font-semibold text-sm uppercase tracking-wider">Отзывы</span>
           <h2 className="text-headline mt-4">
-            Trusted by Growing Businesses
+            Нам доверяют растущие бизнесы
           </h2>
         </motion.div>
 
