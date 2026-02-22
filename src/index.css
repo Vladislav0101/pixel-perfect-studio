@@ -144,6 +144,18 @@
     background-clip: text;
   }
 
+  /* Logo — плавная смена цветов без движения (blue, orange, white) */
+  .logo-gradient {
+    color: #0FB9B1;
+    animation: logo-color-cycle 18s ease-in-out infinite;
+  }
+
+  @keyframes logo-color-cycle {
+    0%, 100% { color: #0FB9B1; }
+    33% { color: #ff7033; }
+    66% { color: #f2f2f2; }
+  }
+
   /* Glow effects */
   .glow-primary {
     box-shadow: var(--shadow-glow);
@@ -155,7 +167,7 @@
 
   /* Section spacing */
   .section-spacing {
-    @apply py-10 sm:py-20 md:py-32;
+    @apply py-10 sm:py-16 md:py-24 lg:py-32;
   }
 
   /* Container */
@@ -272,11 +284,11 @@
   }
 
   .text-small-headline {
-    @apply text-primary font-semibold text-xs sm:text-sm uppercase tracking-wider
+    @apply text-primary font-semibold text-xs md:text-sm uppercase tracking-wider
   }
 
   .text-headline {
-    @apply text-[28px] sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.1];
+    @apply text-[28px] md:text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.1];
   }
 
   .text-title-sm {
@@ -292,10 +304,10 @@
   }
 
   .text-body-sm {
-    @apply text-base md:text-base text-muted-foreground leading-[1.4] sm:leading-relaxed;
+    @apply text-base md:text-base text-muted-foreground leading-[1.4] md:leading-relaxed;
   }
 
   .text-body-lg {
-    @apply text-lg md:text-xl text-muted-foreground leading-[1.4] sm:leading-relaxed;
+    @apply text-lg md:text-xl text-muted-foreground leading-[1.4] md:leading-relaxed;
   }
 }

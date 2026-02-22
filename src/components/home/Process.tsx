@@ -40,20 +40,20 @@ export function Process() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10 sm:mb-16"
+          className="text-center mb-10 md:mb-16"
         >
           <span className="text-small-headline">
             Наш процесс
           </span>
-          <h2 className="text-headline sm:mt-4">От идеи до запуска</h2>
-          <p className="text-body-lg max-w-2xl mx-auto mt-8 sm:mt-4 font-light">
+          <h2 className="text-headline md:mt-4">От идеи до запуска</h2>
+          <p className="text-body-lg max-w-2xl mx-auto mt-8 md:mt-4 font-light">
             Работаем по понятному процессу: регулярные отчёты, контроль сроков и
             фокус на результате.
           </p>
         </motion.div>
 
         {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 md:gap-8">
           {steps.map((step, index) => (
             <motion.div
               key={step.title}
@@ -67,11 +67,11 @@ export function Process() {
                 <div className="hidden lg:block absolute top-10 left-[calc(50%+2rem)] w-[calc(100%-4rem)] h-px bg-gradient-to-r from-primary/50 to-transparent" />
               )}
 
-              <div className="sm:text-center">
-                <div className='flex items-center gap-3 sm:block mb-2 sm:mb-6'>
+              <div className="md:text-center">
+                <div className='flex items-center gap-3 md:flex-col mb-2 md:mb-6'>
                   <div className="relative inline-flex items-center justify-center">
-                    <div className="sm:w-20 sm:h-20 w-10 h-10 rounded-2xl bg-muted flex items-center justify-center relative z-10">
-                      <step.icon className="sm:w-8 sm:h-8 w-4 h-4 text-primary" />
+                    <div className="md:w-20 md:h-20 w-10 h-10 rounded-2xl bg-muted flex items-center justify-center relative z-10">
+                      <step.icon className="md:w-8 md:h-8 w-4 h-4 text-primary" />
                     </div>
                   </div>
                   <h3 className="font-display text-xl font-bold">

@@ -33,7 +33,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-18 sm:pt-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden py-18 md:pt-20">
       <div className="container-custom relative z-10">
         <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
@@ -41,10 +41,10 @@ export function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 py-1.5 px-3 sm:px-4 sm:py-2 rounded-full bg-muted border border-border mb-8"
+            className="inline-flex items-center gap-2 py-1.5 px-3 md:px-4 md:py-2 rounded-full bg-muted border border-border mb-8"
           >
             <Sparkles className="w-4 h-4 text-blue" />
-            <span className="text-xs sm:text-sm font-medium text-muted-foreground">
+            <span className="text-xs md:text-md font-medium text-muted-foreground">
               Студия web-разработки
             </span>
           </motion.div>
@@ -54,9 +54,9 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="grid text-display mb-6 gap-1 sm:gap-0"
+            className="grid text-display mb-6 gap-1 md:gap-0"
           >
-            <span className="text-foreground">Наши <br className='block sm:hidden' /> Web-pешения</span>
+            <span className="text-foreground">Наши <br className='block xs:hidden' /> Web-pешения</span>
             <span className="text-gradient-primary">
               Масштабируют ваш бизнес
             </span>
@@ -78,16 +78,16 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            className="flex flex-col md:flex-row items-center justify-center gap-4"
           >
-            <Button variant="hero" size="xl" asChild>
+            <Button variant="hero" className='w-full md:w-auto' size="xl" asChild>
               <Link to="/contact">
-                <span className='hidden sm:block'>Получить бесплатное предложение</span>
-                <span className='block sm:hidden'>Бесплатное предложение</span>
+                <span className='hidden md:block'>Получить бесплатное предложение</span>
+                <span className='block md:hidden'>Бесплатное предложение</span>
                 <ArrowRight className="ml-2" />
               </Link>
             </Button>
-            <Button className='w-full sm:w-auto' variant="heroOutline" size="xl" asChild>
+            <Button className='w-full md:w-auto' variant="heroOutline" size="xl" asChild>
               <Link to="/portfolio">Посмотреть наши работы</Link>
             </Button>
           </motion.div>
@@ -97,18 +97,18 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.6 }}
-            className="mt-6 sm:mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-muted-foreground text-sm"
+            className="mt-6 md:mt-16 flex flex-wrap items-center justify-center gap-x-6 md:gap-x-8 gap-y-2 text-muted-foreground text-md"
           >
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-primary" />
+            <div className="flex items-center gap-1 md:gap-2">
+              <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-primary" />
               <span className="font-light">Кратчайшие сроки</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-primary" />
+            <div className="flex items-center gap-1 md:gap-2">
+              <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-primary" />
               <span className="font-light">Мобильный дизайн</span>
             </div>
-            <div className="flex items-center gap-2">
-              <div className="w-2 h-2 rounded-full bg-primary" />
+            <div className="flex items-center gap-1 md:gap-2">
+              <div className="w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-primary" />
               <span className="font-light">SEO оптимизация</span>
             </div>
           </motion.div>
@@ -122,7 +122,7 @@ export function Hero() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ delay: 1.5 }}
-          className="hidden sm:block absolute bottom-8 left-1/2 -translate-x-1/2"
+          className="hidden md:block absolute bottom-8 left-1/2 -translate-x-1/2"
         >
           <div className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full flex items-start justify-center p-2">
             <motion.div
@@ -141,7 +141,7 @@ export function Hero() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ delay: 1.5 }}
-          className="sm:hidden absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="md:hidden absolute bottom-6 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}

@@ -13,6 +13,7 @@ import {
 } from '@/components/ui/carousel';
 import { getProjectBySlug } from '@/data/projects';
 import { useCallback, useEffect, useState } from 'react';
+import { CTA } from '@/components/home/CTA';
 
 /** Build slider slides: gallery if set, else repeat imageUrl or gradient. Always ≥3 for peek effect. */
 function getProjectSlides(project: NonNullable<ReturnType<typeof getProjectBySlug>>) {
@@ -65,14 +66,14 @@ export default function Project() {
   return (
     <Layout>
       {/* Back link */}
-      <section className="pt-32 pb-8">
+      <section className="pt-20 md:pt-32 pb-6 md:pb-8">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <Button variant="ghost" size="sm" asChild>
+            <Button variant="ghost" size="sm" asChild className='pl-0'>
               <Link
                 to="/portfolio"
                 className="group inline-flex items-center gap-2 text-muted-foreground hover:text-foreground"
@@ -86,17 +87,17 @@ export default function Project() {
       </section>
 
       {/* Hero */}
-      <section className="pb-12">
+      <section className="pb-8 md:pb-12">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
+            <span className="text-small-headline">
               {project.industry}
             </span>
-            <h1 className="text-headline mt-4 mb-6">{project.title}</h1>
+            <h1 className="text-headline md:mt-4 mb-6">{project.title}</h1>
             <p className="text-body-lg font-light max-w-2xl">
               {project.description}
             </p>
@@ -105,7 +106,7 @@ export default function Project() {
       </section>
 
       {/* Project slider — full width, center slide prominent, edges cut off */}
-      <section className="pb-16 w-full overflow-hidden">
+      <section className="pb-12 md:pb-16 w-full overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -125,20 +126,20 @@ export default function Project() {
               {slides.map((slide, index) => (
                 <CarouselItem
                   key={index}
-                  className="pl-2 md:pl-4 basis-[85%] sm:basis-[80%] md:basis-[75%] lg:basis-[70%]"
+                  className="pl-2 md:pl-4 basis-[85%] md:basis-[80%] md:basis-[75%] lg:basis-[70%]"
                 >
                   <div
-                    className={`aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-card ${
-                      slide.type === 'gradient' ? slide.class : ''
-                    }`}
+                    className={`aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-card ${slide.type === 'gradient' ? slide.class : ''
+                      }`}
                     style={
                       slide.type === 'image'
                         ? {
-                            backgroundImage: `url(${slide.url})`,
-                            backgroundSize: 'contain',
-                            backgroundPosition: 'center',
-                            backgroundRepeat: 'no-repeat',
-                          }
+                          backgroundImage: `url(${slide.url})`,
+                          backgroundSize: 'contain',
+                          backgroundPosition: 'center',
+                          backgroundRepeat: 'no-repeat',
+                          backgroundColor: project.backgroundColor,
+                        }
                         : undefined
                     }
                   >
@@ -164,11 +165,10 @@ export default function Project() {
                   type="button"
                   aria-label={`Slide ${index + 1}`}
                   onClick={() => api?.scrollTo(index)}
-                  className={`h-1.5 rounded-full transition-all ${
-                    index === current
-                      ? 'w-6 bg-primary'
-                      : 'w-1.5 bg-muted-foreground/40 hover:bg-muted-foreground/60'
-                  }`}
+                  className={`h-1.5 rounded-full transition-all ${index === current
+                    ? 'w-6 bg-primary'
+                    : 'w-1.5 bg-muted-foreground/40 hover:bg-muted-foreground/60'
+                    }`}
                 />
               ))}
             </div>
@@ -177,95 +177,62 @@ export default function Project() {
       </section>
 
       {/* Бизнес-задача, Функциональность, Результаты — or legacy Results */}
-      <section className="pb-20">
+      <section className="pb-12 md:pb-20">
         <div className="container-custom">
-          {project.businessTask != null || (project.functionality?.length ?? 0) > 0 ? (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="max-w-4xl space-y-16"
-            >
-              {project.businessTask != null && (
-                <div>
-                  <h2 className="text-title-xl mb-4">Бизнес-задача</h2>
-                  <p className="text-body-lg !text-primary">
-                    {project.businessTask}
-                  </p>
-                </div>
-              )}
-
-              {project.functionality && project.functionality.length > 0 && (
-                <div>
-                  <h2 className="text-title-xl mb-8">
-                    {project.functionalityTitle ?? 'Функциональность'}
-                  </h2>
-                  <div className="grid gap-10 sm:grid-cols-2">
-                    {project.functionality.map((block, blockIndex) => (
-                      <motion.div
-                        key={block.title}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{
-                          duration: 0.4,
-                          delay: 0.35 + blockIndex * 0.05,
-                        }}
-                        className="rounded-xl border border-border bg-card p-6"
-                      >
-                        <h3 className="font-display font-bold text-lg mb-4">
-                          {block.title}
-                        </h3>
-                        <ul className="space-y-2">
-                          {block.items.map((item) => (
-                            <li
-                              key={item}
-                              className="flex items-center gap-2 text-base text-muted-foreground"
-                            >
-                              <span className="h-1 w-1 flex-shrink-0 rounded-full bg-primary" />
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="max-w-4xl space-y-8 md:space-y-16"
+          >
+            {project.businessTask && (
               <div>
-                <h2 className="text-title-xl mb-6">Результаты</h2>
-                <ul className="space-y-4">
-                  {project.results.map((result, index) => (
-                    <motion.li
-                      key={result}
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
+                <h2 className="text-title mb-3 md:mb-8">Бизнес-задача</h2>
+                <p className="text-body-lg !text-primary">
+                  {project.businessTask}
+                </p>
+              </div>
+            )}
+            {project.functionality.length > 0 && (
+              <div>
+                <h2 className="text-title mb-4 md:mb-8">
+                  {project.functionalityTitle ?? 'Функциональность'}
+                </h2>
+                <div className="grid gap-6 md:gap-10 md:grid-cols-2">
+                  {project.functionality.map((block, blockIndex) => (
+                    <motion.div
+                      key={block.title}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{
                         duration: 0.4,
-                        delay: 0.5 + index * 0.05,
+                        delay: 0.35 + blockIndex * 0.05,
                       }}
-                      className="flex items-center gap-4"
+                      className="rounded-xl border border-border bg-card p-4 md:p-6"
                     >
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
-                        <Check className="w-3.5 h-3.5 text-primary" />
-                      </div>
-                      <span className="text-body-lg text-muted-foreground">
-                        {result}
-                      </span>
-                    </motion.li>
+                      <h3 className="font-display font-bold text-lg mb-2 md:mb-4">
+                        {block.title}
+                      </h3>
+                      <ul className="space-y-2">
+                        {block.items.map((item) => (
+                          <li
+                            key={item}
+                            className="flex gap-2 text-base text-muted-foreground"
+                          >
+                            <span className="mt-2.5 h-1 w-1 flex-shrink-0 rounded-full bg-primary" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </motion.div>
                   ))}
-                </ul>
+                </div>
               </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="max-w-2xl"
-            >
-              <h2 className="text-title mb-8">Ключевые результаты</h2>
-              <ul className="space-y-4">
+            )}
+
+            <div>
+              <h2 className="text-title mb-4 md:mb-6">Результаты</h2>
+              <ul className="space-y-2 md:space-y-4">
                 {project.results.map((result, index) => (
                   <motion.li
                     key={result}
@@ -273,61 +240,33 @@ export default function Project() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{
                       duration: 0.4,
-                      delay: 0.4 + index * 0.1,
+                      delay: 0.5 + index * 0.05,
                     }}
-                    className="flex items-start gap-4"
+                    className="flex items-center gap-4"
                   >
-                    <div className="mt-1.5 flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center">
-                      <Check className="w-3.5 h-3.5 text-primary" />
+                    <div className="flex-shrink-0 w-4 md:w-6 h-4 md:h-6 rounded-full bg-primary/20 flex items-center justify-center">
+                      <Check className="w-2.5 md:w-3.5 h-2.5 md:h-3.5 text-primary" />
                     </div>
-                    <span className="text-body-lg text-muted-foreground">
+                    <span className="text-body-sm md:text-body-lg text-muted-foreground">
                       {result}
                     </span>
                   </motion.li>
                 ))}
               </ul>
-            </motion.div>
-          )}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="section-spacing">
-        <div className="container-custom">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: '-100px' }}
-            transition={{ duration: 0.8 }}
-            className="relative rounded-3xl overflow-hidden"
-          >
-            {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/90 to-primary/80" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
-
-            {/* Content */}
-            <div className="relative z-10 px-8 py-16 md:px-16 md:py-24 text-center">
-              <h2 className="text-3xl md:text-5xl font-display font-bold text-primary-foreground mb-6">
-                Нравится то, что вы видите?
-              </h2>
-              <p className="text-primary-foreground/90 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-                Давайте обсудим, как мы можем помочь вашему бизнесу достичь
-                подобных результатов.
-              </p>
-              <Button
-                size="xl"
-                className="bg-primary-foreground text-primary hover:bg-primary-foreground/90"
-                asChild
-              >
-                <Link to="/contact">
-                  Обсудить проект
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
             </div>
           </motion.div>
         </div>
       </section>
+
+
+      {/* CTA */}
+      <div className="pb-12 md:pb-20">
+        <CTA
+          title="Хотите такой же результат?"
+          description="Давайте обсудим, как мы можем помочь вашему бизнесу достичь подобных результатов."
+          buttonText="Обсудить проект"
+        />
+      </div>
     </Layout>
   );
 }

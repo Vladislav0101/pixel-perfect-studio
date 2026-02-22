@@ -12,12 +12,12 @@ const services = [
     description: "Полностью индивидуальная веб-платформа, разработанная с учётом ваших уникальных потребностей. Без шаблонов, без компромиссов.",
     features: [
       "Индивидуальный дизайн под ваши потребности",
-      "Адаптивность под все устройства", 
+      "Адаптивность под все устройства",
       "Быстрая загрузка",
       "SEO-оптимизированная структура",
     ],
     timeline: "2-4 недели",
-    startingPrice: "$700",
+    startingPrice: "0",
   },
   {
     id: "landing",
@@ -30,7 +30,7 @@ const services = [
       "Быстрая разработка за 1 неделю",
     ],
     timeline: "1 неделя",
-    startingPrice: "$500",
+    startingPrice: "0",
   },
   {
     id: "redesign",
@@ -43,7 +43,7 @@ const services = [
       "Сохранение и улучшение SEO",
     ],
     timeline: "2-3 недели",
-    startingPrice: "$300",
+    startingPrice: "0",
   },
   {
     id: "seo",
@@ -56,15 +56,15 @@ const services = [
       "Оптимизация изображений",
     ],
     timeline: "Постоянно",
-    startingPrice: "$200",
+    startingPrice: "0",
   },
 ];
 
 const addons = [
-  { name: "Обслуживание сайта", price: "$100/мес +" },
-  { name: "Написание контента", price: "$50/страница +" },
-  { name: "Фотографии / Контент", price: "Индивидуальный расчёт" },
-  { name: "Дизайн логотипа", price: "$200 +" },
+  { name: "Обслуживание сайта", price: "0" },
+  { name: "Написание контента", price: "0" },
+  { name: "Фотографии / Контент", price: "0" },
+  { name: "Дизайн логотипа", price: "0" },
 ];
 
 function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
@@ -80,32 +80,32 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="scroll-mt-32"
     >
-      <div className="p-5 sm:p-8 md:p-10 rounded-2xl bg-card border border-border">
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 sm:gap-8">
+      <div className="p-5 md:p-8 md:p-10 rounded-2xl bg-card border border-border">
+        <div className="flex flex-col lg:flex-row lg:items-stretch lg:justify-between gap-6 md:gap-8">
           <div className="flex-1">
-            <h2 className="text-title-sm sm:text-title mb-4">{service.title}</h2>
-            <p className="text-body-sm sm:text-body-lg mb-6 sm:mb-8">{service.description}</p>
+            <h2 className="text-title-sm md:text-title mb-4">{service.title}</h2>
+            <p className="text-body-sm md:text-body-lg mb-6 md:mb-8">{service.description}</p>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {service.features.map((feature) => (
-                <div key={feature} className="flex gap-2 sm:gap-3">
-                  <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-blue/20 flex items-center justify-center flex-shrink-0">
-                    <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-blue" />
+                <div key={feature} className="flex gap-2 md:gap-3">
+                  <div className="w-4 h-4 md:w-5 md:h-5 rounded-full bg-blue/20 flex items-center justify-center flex-shrink-0">
+                    <Check className="w-2.5 h-2.5 md:w-3 md:h-3 text-blue" />
                   </div>
-                  <span className="text-xs sm:text-sm text-muted-foreground">{feature}</span>
+                  <span className="text-xs md:text-sm text-muted-foreground">{feature}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="lg:w-64 flex-shrink-0">
-            <div className="p-6 rounded-xl bg-muted/50 text-center">
-              <p className="text-sm text-muted-foreground mb-2">Начиная от</p>
-              <p className="text-2xl font-display font-bold text-primary mb-4">{service.startingPrice}</p>
-              <p className="text-sm text-muted-foreground mb-6">Срок: {service.timeline}</p>
-              <Button variant="hero" className="w-full" asChild>
+          <div className="lg:w-64 flex flex-col p-6 rounded-xl bg-muted/50 text-center lg:self-stretch justify-center gap-2">
+            <p className="text-sm text-muted-foreground mb-2">Подбираем решение под ваши цели, ресурсы и приоритеты</p>
+            {/* <p className="text-2xl font-display font-bold text-primary mb-4">{service.startingPrice}</p> */}
+            <div>
+              <Button variant="hero" className="w-full mb-2" asChild>
                 <Link to="/contact">Получить предложение</Link>
               </Button>
+              <p className="text-sm text-muted-foreground">Срок: {service.timeline}</p>
             </div>
           </div>
         </div>
@@ -121,7 +121,7 @@ export default function ServicesPage() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="pt-28 sm:pt-32 pb-10 sm:pb-16 md:pt-40 md:pb-24">
+      <section className="pt-28 md:pt-32 pb-10 md:pb-16 md:pt-40 md:pb-24">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -130,7 +130,7 @@ export default function ServicesPage() {
             className="max-w-3xl"
           >
             <span className="text-small-headline">Наши услуги</span>
-            <h1 className="text-headline sm:mt-4 mb-6">
+            <h1 className="text-headline md:mt-4 mb-6">
               Web-решения, которые дают результаты
             </h1>
             <p className="text-body-lg font-light">
@@ -141,7 +141,7 @@ export default function ServicesPage() {
       </section>
 
       {/* Services List */}
-      <section className="pb-12 sm:pb-20">
+      <section className="pb-12 md:pb-20">
         <div className="container-custom space-y-8">
           {services.map((service, index) => (
             <ServiceCard key={service.id} service={service} index={index} />
@@ -150,13 +150,13 @@ export default function ServicesPage() {
       </section>
 
       {/* Add-ons */}
-      <section ref={addonsRef} className="section-spacing bg-card">
+      <section ref={addonsRef} className="py-12 bg-card">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={addonsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-center mb-8 sm:mb-12"
+            className="text-center mb-8 md:mb-12"
           >
             <h2 className="text-title">Дополнительные услуги</h2>
           </motion.div>
@@ -165,12 +165,12 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={addonsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-4xl mx-auto"
           >
             {addons.map((addon) => (
-              <div key={addon.name} className="p-4 sm:p-6 rounded-xl bg-background border border-border text-center">
-                <p className="font-semibold mb-2">{addon.name}</p>
-                <p className="text-primary font-display font-bold">{addon.price}</p>
+              <div key={addon.name} className="flex items-center justify-center p-4 md:p-6 rounded-xl bg-background border border-border text-center">
+                <p className="font-semibold">{addon.name}</p>
+                {/* <p className="text-primary font-display font-bold">{addon.price}</p> */}
               </div>
             ))}
           </motion.div>
@@ -179,9 +179,9 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={addonsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-center mt-8 sm:mt-12"
+            className="text-center mt-8 md:mt-12"
           >
-            <Button variant="hero" size="xl" asChild className="w-full sm:w-auto">
+            <Button variant="hero" size="xl" asChild className="w-full md:w-auto">
               <Link to="/contact">
                 Обсудить ваш проект
                 <ArrowRight className="ml-2" />

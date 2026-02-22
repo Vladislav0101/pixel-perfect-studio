@@ -19,6 +19,9 @@ export default {
       },
     },
     extend: {
+      screens: {
+        xs: '480px',
+      },
       spacing: {
         18: '4.5rem',
       },

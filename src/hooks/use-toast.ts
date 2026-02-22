@@ -163,7 +163,7 @@ function toast({ ...props }: Toast) {
   };
 }
 
-function useToast() {
+function useToast(timer: number = 4000) {
   const [state, setState] = React.useState<State>(memoryState);
 
   React.useEffect(() => {
@@ -176,9 +176,22 @@ function useToast() {
     };
   }, [state]);
 
+  // Обернём toast, чтобы добавлять dismiss через таймер
+  const showToast: typeof toast = (props) => {
+    const toastObj = toast(props);
+
+    if (timer > 0) {
+      setTimeout(() => {
+        toastObj.dismiss();
+      }, timer);
+    }
+
+    return toastObj;
+  };
+
   return {
     ...state,
-    toast,
+    toast: showToast,
     dismiss: (toastId?: string) => dispatch({ type: "DISMISS_TOAST", toastId }),
   };
 }

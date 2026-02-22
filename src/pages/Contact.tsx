@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
+import { EMAIL, PHONE_DISPLAY, SOCIAL_LINKS } from "@/constants/links";
 import { useState } from "react";
 import { Layout } from "@/components/layout/Layout";
-import { Mail, ArrowRight, CheckCircle } from "lucide-react";
+import { Mail, ArrowRight, CheckCircle, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -18,9 +19,11 @@ import { supabase } from "@/lib/supabaseClient";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Имя обязательно").max(100, "Имя должно быть менее 100 символов"),
-  email: z.string().trim().email("Пожалуйста, введите действительный email").max(255, "Email должен быть менее 255 символов"),
+  email: z.string().trim().max(255, "Email должен быть менее 255 символов").optional(),
+  phone: z.string().trim().min(1, "Укажите телефон").max(100, "Телефон должен быть менее 100 символов"),
   company: z.string().max(100, "Название компании должно быть менее 100 символов").optional(),
-  service: z.string().max(100, "Услуга должна быть менее 100 символов").optional(),
+  budget: z.string().trim().min(1, "Укажите примерный бюджет").max(100, "Бюджет должен быть менее 100 символов"),
+  service: z.string().trim().min(1, "Укажите интересующую услугу").max(100, "Услуга должна быть менее 100 символов"),
   message: z.string().trim().min(10, "Пожалуйста, предоставьте больше деталей о вашем проекте").max(2000, "Сообщение должно быть менее 2000 символов").optional(),
 });
 
@@ -36,9 +39,11 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     company: "",
     service: "",
     message: "",
+    budget: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -67,9 +72,11 @@ export default function Contact() {
       const parsed = contactSchema.parse({
         name: formData.name,
         email: formData.email,
-        company: formData.company || undefined,
-        service: formData.service || undefined,
+        phone: formData.phone,
+        company: formData.company,
+        service: formData.service,
         message: formData.message,
+        budget: formData.budget,
       });
 
       const { error: insertError } = await supabase
@@ -78,16 +85,18 @@ export default function Contact() {
           {
             name: parsed.name,
             email: parsed.email,
-            company: parsed.company ?? null,
-            service: parsed.service ?? null,
-            message: parsed.message ?? null,
+            company: parsed.company,
+            phone: parsed.phone,
+            budget: parsed.budget,
+            service: parsed.service,
+            message: parsed.message,
           },
         ]);
 
       if (insertError) {
         throw insertError;
       }
-      
+
       setIsSubmitted(true);
       toast({
         title: "Сообщение отправлено!",
@@ -121,9 +130,9 @@ export default function Contact() {
 
   return (
     <Layout>
-      <section className="pt-28 sm:pt-32 pb-10 sm:pb-20 md:pt-40 md:pb-24">
+      <section className="pt-28 md:pt-32 pb-10 md:pb-20 md:pt-40 md:pb-24">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
             {/* Left side - Info */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -131,22 +140,37 @@ export default function Contact() {
               transition={{ duration: 0.6 }}
             >
               <span className="text-small-headline">Контакты</span>
-              <h1 className="text-headline sm:mt-4 mb-6">
+              <h1 className="text-headline md:mt-4 mb-6">
                 Давайте начнём проект вместе
               </h1>
-              <p className="text-body-lg mb-8 sm:mb-10">
+              <p className="text-body-lg mb-8 md:mb-10">
                 Расскажите нам о вашем проекте, и мы свяжемся с вами в течение 24 часов с бесплатной консультацией и предложением.
               </p>
 
-              <div className="space-y-6 mb-8 sm:mb-10">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="font-semibold mb-1">Позвоните прямо сейчас</p>
+                  <a
+                    href={SOCIAL_LINKS.phone}
+                    className="text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {PHONE_DISPLAY}
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-4 mb-8 md:mb-10">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <Mail className="w-5 h-5 text-primary" />
                   </div>
                   <div>
                     <p className="font-semibold mb-1">Напишите нам напрямую</p>
-                    <a href="mailto:hello@vectorstudio.dev" className="text-muted-foreground hover:text-primary transition-colors">
-                      hello@vectorstudio.dev
+                    <a href={SOCIAL_LINKS.email} className="text-muted-foreground hover:text-primary transition-colors">
+                      {EMAIL}
                     </a>
                   </div>
                 </div>
@@ -165,7 +189,7 @@ export default function Contact() {
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0 text-primary font-bold text-xs">3</span>
-                    Получаете детальное предложение и расчёт
+                    Вы получаете детальное предложение и расчёт
                   </li>
                 </ol>
               </div>
@@ -179,19 +203,19 @@ export default function Contact() {
             >
               {isSubmitted ? (
                 <div className="h-full flex items-center justify-center">
-                  <div className="text-center p-8 rounded-2xl bg-card border border-border">
-                    <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle className="w-8 h-8 text-primary" />
+                  <div className="text-center p-6 md:p-8 rounded-2xl bg-card border border-border">
+                    <div className="w-14 md:w-16 h-14 md:h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4 md:mb-6">
+                      <CheckCircle className="w-7 md:w-8 h-7 md:h-8 text-primary" />
                     </div>
-                    <h2 className="text-2xl font-display font-bold mb-4">Сообщение отправлено!</h2>
-                    <p className="text-muted-foreground mb-6">
-                      Спасибо за обращение. Мы свяжемся с вами в течение 24 часов.
+                    <h2 className="text-xl md:text-2xl font-display font-bold mb-2 md:mb-4">Сообщение отправлено!</h2>
+                    <p className="text-muted-foreground mb-3 md:mb-6">
+                      {formData.name}, спасибо за обращение! Мы свяжемся с вами в течение 24 часов.
                     </p>
                     <Button
                       variant="hero"
                       onClick={() => {
                         setIsSubmitted(false);
-                        setFormData({ name: "", email: "", company: "", service: "", message: "" });
+                        setFormData({ name: "", email: "", phone: "", company: "", service: "", message: "", budget: "" });
                       }}
                     >
                       Отправить ещё одно сообщение
@@ -201,13 +225,13 @@ export default function Contact() {
               ) : (
                 <form
                   onSubmit={handleSubmit}
-                  className="p-8 rounded-2xl bg-card border border-border [&_input]:focus-visible:ring-0 [&_input]:focus-visible:ring-offset-0 [&_textarea]:focus-visible:ring-0 [&_textarea]:focus-visible:ring-offset-0 [&_button[type='submit']]:focus-visible:ring-0 [&_button[type='submit']]:focus-visible:ring-offset-0"
+                  className="p-4 md:p-8 rounded-2xl bg-card border border-border [&_input]:focus-visible:ring-0 [&_input]:focus-visible:ring-offset-0 [&_textarea]:focus-visible:ring-0 [&_textarea]:focus-visible:ring-offset-0 [&_button[type='submit']]:focus-visible:ring-0 [&_button[type='submit']]:focus-visible:ring-offset-0"
                 >
                   <div className="space-y-6">
                     {/* Name */}
                     <div>
                       <label htmlFor="name" className="block text-sm font-medium mb-2">
-                        Ваше имя *
+                        Ваше имя
                       </label>
                       <Input
                         id="name"
@@ -220,10 +244,27 @@ export default function Contact() {
                       {errors.name && <p className="text-destructive text-sm mt-1">{errors.name}</p>}
                     </div>
 
+                    {/* Phone */}
+
+                    <div>
+                      <label htmlFor="phone" className="block text-sm font-medium mb-2">
+                        Телефон
+                      </label>
+                      <Input
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        placeholder="8 (999) 999-99-99"
+                        className={errors.phone ? "border-destructive" : ""}
+                      />
+                      {errors.phone && <p className="text-destructive text-sm mt-1">{errors.phone}</p>}
+                    </div>
+
                     {/* Email */}
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium mb-2">
-                        Email адрес *
+                        Email <span className="text-muted-foreground text-xs">(необязательно)</span>
                       </label>
                       <Input
                         id="email"
@@ -240,7 +281,7 @@ export default function Contact() {
                     {/* Company */}
                     <div>
                       <label htmlFor="company" className="block text-sm font-medium mb-2">
-                        Название компании
+                        Название компании <span className="text-muted-foreground text-xs">(необязательно)</span>
                       </label>
                       <Input
                         id="company"
@@ -280,10 +321,26 @@ export default function Contact() {
                       </Select>
                     </div>
 
+                    {/* Budget */}
+                    <div>
+                      <label htmlFor="budget" className="block text-sm font-medium mb-2">
+                        Примерный бюджет
+                      </label>
+                      <Input
+                        id="budget"
+                        name="budget"
+                        value={formData.budget}
+                        onChange={handleChange}
+                        placeholder="2,000$"
+                        type="text"
+                      />
+                      {errors.budget && <p className="text-destructive text-sm mt-1">{errors.budget}</p>}
+                    </div>
+
                     {/* Message */}
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium mb-2">
-                        Расскажите о вашем проекте *
+                        Расскажите о вашем проекте
                       </label>
                       <Textarea
                         id="message"

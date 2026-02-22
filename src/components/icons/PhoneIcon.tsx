@@ -1,0 +1,16 @@
+import { SVGProps } from "react";
+
+export function PhoneIcon({ className, ...props }: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      className={className}
+      {...props}
+    >
+      <path d="M3.7 1.3a.7.7 0 0 0-1 0l-1.1 1c-.5.5-.7 1.2-.4 1.8a17.6 17.6 0 0 0 4.1 6.6 17.6 17.6 0 0 0 6.6 4.1c.6.3 1.3 0 1.8-.4l1-1a.7.7 0 0 0 0-1l-2.3-1.8a.7.7 0 0 0-.6-.2l-2.2.6a1.8 1.8 0 0 1-1.7-.5L5.5 8.1A1.8 1.8 0 0 1 5 6.4l.6-2.2a.7.7 0 0 0-.2-.6zM1.9.5a1.7 1.7 0 0 1 2.6.2L6.3 3c.3.4.4 1 .3 1.5l-.5 2.2a.7.7 0 0 0 .1.6l2.5 2.5a.7.7 0 0 0 .6.1l2.2-.5a1.8 1.8 0 0 1 1.5.3l2.3 1.8c.9.6 1 1.9.2 2.6l-1 1c-.8.8-1.9 1.1-3 .8a18.6 18.6 0 0 1-7-4.5 18.6 18.6 0 0 1-4.4-7c-.3-1 0-2.1.8-2.9z" />
+    </svg>
+  );
+}

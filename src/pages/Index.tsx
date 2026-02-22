@@ -13,6 +13,7 @@ const Index = () => {
       <Process />
       {/* <Testimonials /> */}
       <CTA
+        className="pb-10 sm:pb-16 md:pb-32"
         title="Готовы обсудить ваш проект?"
         description="Оставьте заявку и получите бесплатную консультацию и предложение в течение 24 часов."
         buttonText="Начать проект"

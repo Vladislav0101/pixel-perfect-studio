@@ -32,12 +32,13 @@ export interface Project {
   results: string[];
   image: string;
   imageUrl?: string;
+  backgroundColor?: string;
   /** Optional gallery images for project page slider. Falls back to imageUrl/image if not set. */
   gallery?: string[];
   /** Business task (Бизнес-задача). When set, project page shows extended sections. */
   businessTask?: string;
   /** Functionality blocks (Функциональность). */
-  functionality?: ProjectFunctionalityBlock[];
+  functionality: ProjectFunctionalityBlock[];
   /** Custom title for functionality section. Defaults to "Функциональность". */
   functionalityTitle?: string;
 }
@@ -56,6 +57,7 @@ export const projects: Project[] = [
     ],
     image: 'bg-cover',
     imageUrl: flats1Image,
+    backgroundColor: '#faf8f5',
     gallery: [flats1Image, flats2Image, flats3Image, flats4Image, flats5Image],
     businessTask: 'Получение заявок от клиентов с чеком выше среднего.',
     functionality: [
@@ -120,6 +122,7 @@ export const projects: Project[] = [
     ],
     image: 'bg-cover',
     imageUrl: logistic1Image,
+    backgroundColor: '#f7fafc',
     gallery: [logistic1Image, logistic2Image, logistic3Image, logistic4Image, logistic5Image],
     businessTask: 'Автоматизация взаимодействия с клиентами и партнёрами.',
     functionality: [
@@ -188,6 +191,7 @@ export const projects: Project[] = [
     ],
     image: 'bg-gradient-to-br from-amber-500/20 to-orange-500/20',
     imageUrl: clothes2Image,
+    backgroundColor: '#ebe3d7',
     gallery: [
       clothes1Image,
       clothes2Image,
@@ -198,6 +202,7 @@ export const projects: Project[] = [
       clothes7Image,
       clothes8Image,
     ],
+    businessTask: 'Онлайн-продажи и формирование узнаваемости бренда.',
     functionalityTitle: 'Функциональность интернет-магазина',
     functionality: [
       {

@@ -43,7 +43,7 @@ export default function About() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="pt-28 sm:pt-32 pb-10 sm:pb-16 md:pt-40 md:pb-24">
+      <section className="pt-28 md:pt-32 pb-10 md:pb-16 md:pt-40 md:pb-24">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -52,7 +52,7 @@ export default function About() {
             className="max-w-3xl"
           >
             <span className="text-small-headline">О нас</span>
-            <h1 className="text-headline sm:mt-4 mb-6">
+            <h1 className="text-headline md:mt-4 mb-6">
               Малая команда. <br /> Большое влияние.
             </h1>
             <p className="text-body-lg">
@@ -64,19 +64,19 @@ export default function About() {
       </section>
 
       {/* Story */}
-      <section className="pb-12 sm:pb-20">
+      <section className="pb-12 md:pb-20">
         <div className="container-custom">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-5 md:gap-16">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-blue/15 relative overflow-hidden">
+              <div className="max-w-sm sm:max-w-none aspect-square rounded-2xl bg-gradient-to-br from-primary/20 to-blue/15 relative overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="w-32 h-32 rounded-2xl bg-primary flex items-center justify-center">
-                    <span className="text-primary-foreground font-display font-bold text-5xl">V</span>
+                    <span className="text-primary-foreground font-display font-bold text-6xl">V</span>
                   </div>
                 </div>
                 {/* Decorative elements */}
@@ -91,7 +91,7 @@ export default function About() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <h2 className="text-title mb-3 sm:mb-6">Наша история</h2>
+              <h2 className="text-title mb-3 md:mb-6">Наша история</h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
                   Vector начался с простого наблюдения: малому бизнесу часто не хватает сайтов, которые одновременно выглядят профессионально и эффективно решают задачи роста. Мы увидели запрос на качественные, продуманные цифровые решения без лишней сложности.
@@ -115,10 +115,10 @@ export default function About() {
             initial={{ opacity: 0, y: 30 }}
             animate={valuesInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-center mb-8 sm:mb-16"
+            className="text-center mb-8 md:mb-16"
           >
             <span className="text-small-headline">Наши ценности</span>
-            <h2 className="text-headline sm:mt-4">Как мы работаем</h2>
+            <h2 className="text-headline md:mt-4">Как мы работаем</h2>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -128,10 +128,10 @@ export default function About() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={valuesInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="p-4 sm:p-6 rounded-xl bg-background border border-border text-center"
+                className="p-5 md:p-6 rounded-xl bg-background border border-border text-center"
               >
-                <div className="w-10 sm:w-14 h-10 sm:h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2 sm:mb-4">
-                  <value.icon className="w-5 sm:w-7 h-5 sm:h-7 text-primary" />
+                <div className="w-10 md:w-14 h-10 md:h-14 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2 md:mb-4">
+                  <value.icon className="w-5 md:w-7 h-5 md:h-7 text-primary" />
                 </div>
                 <h3 className="font-display font-bold mb-3">{value.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{value.description}</p>
@@ -163,7 +163,8 @@ export default function About() {
 
       {/* CTA */}
       <CTA
-        title="Давайте создадим что-то великое"
+        className="pb-10 sm:pb-16 md:pb-24"
+        title="Получить оценку"
         description="Готовы работать с командой, которая искренне заботится о вашем успехе? Давайте поговорим."
         buttonText="Связаться с нами"
       />

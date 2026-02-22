@@ -3,7 +3,6 @@ import { useRef } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
 import { CTA } from '@/components/home/CTA';
 import { projects } from '@/data/projects';
 
@@ -23,7 +22,7 @@ function ProjectCard({
       initial={{ opacity: 0, y: 40 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group"
+      className=""
     >
       <Link to={`/portfolio/${project.slug}`}>
         <div className="rounded-2xl overflow-hidden bg-card border border-border card-hover h-full flex flex-col">
@@ -86,7 +85,7 @@ export default function Portfolio() {
   return (
     <Layout>
       {/* Hero */}
-      <section className="pt-28 sm:pt-32 pb-10 sm:pb-16 md:pt-40 md:pb-24">
+      <section className="pt-28 md:pt-32 pb-10 md:pb-16 md:pt-40 md:pb-24">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -97,8 +96,8 @@ export default function Portfolio() {
             <span className="text-small-headline">
               Портфолио
             </span>
-            <h1 className="text-headline sm:mt-4 mb-6">
-              Работы, которые говорят сами за себя
+            <h1 className="text-headline md:mt-4 mb-6">
+              Работы, которые говорят <br /> сами за себя
             </h1>
             <p className="text-body-lg font-light">
               Подборка проектов, демонстрирующих наш подход: чистый дизайн,
@@ -109,9 +108,9 @@ export default function Portfolio() {
       </section>  
 
       {/* Projects Grid */}
-      <section className="pb-12 sm:pb-20">
+      <section className="pb-12 md:pb-20">
         <div className="container-custom">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
             {projects.map((project, index) => (
               <ProjectCard
                 key={project.slug}
@@ -124,6 +123,7 @@ export default function Portfolio() {
       </section>
 
       <CTA
+        className="pb-10 sm:pb-16 md:pb-24"
         title="Готовы присоединиться к ним?"
         description="Давайте обсудим, как мы можем помочь вашему бизнесу достичь подобных результатов."
         buttonText="Начать проект"

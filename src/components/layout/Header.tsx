@@ -55,7 +55,7 @@ export function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <span className="font-display font-bold text-xl">Vector</span>
+            <span className="font-display font-bold text-xl logo-gradient">Vector</span>
           </Link>
 
           {/* Desktop Navigation */}
