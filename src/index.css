@@ -117,6 +117,26 @@
     font-family: 'Inter', system-ui, sans-serif;
   }
 
+  /* Reset Chrome -internal-autofill-selected styles */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  textarea:-webkit-autofill:active,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus,
+  select:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px hsl(var(--background)) inset !important;
+    box-shadow: 0 0 0 1000px hsl(var(--background)) inset !important;
+    -webkit-text-fill-color: hsl(var(--foreground)) !important;
+    caret-color: hsl(var(--foreground));
+    transition: background-color 5000s ease-in-out 0s, color 5000s ease-in-out 0s;
+  }
+
   h1,
   h2,
   h3,
@@ -144,7 +164,7 @@
     background-clip: text;
   }
 
-  /* Logo — плавная смена цветов без движения (blue, orange, white) */
+  /* Logo – плавная смена цветов без движения (blue, orange, white) */
   .logo-gradient {
     color: #0FB9B1;
     animation: logo-color-cycle 18s ease-in-out infinite;

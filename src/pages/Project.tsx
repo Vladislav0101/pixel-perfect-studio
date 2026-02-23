@@ -105,7 +105,7 @@ export default function Project() {
         </div>
       </section>
 
-      {/* Project slider — full width, center slide prominent, edges cut off */}
+      {/* Project slider – full width, center slide prominent, edges cut off */}
       <section className="pb-12 md:pb-16 w-full overflow-hidden">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -176,7 +176,7 @@ export default function Project() {
         </motion.div>
       </section>
 
-      {/* Бизнес-задача, Функциональность, Результаты — or legacy Results */}
+      {/* Бизнес-задача, Функциональность, Результаты – or legacy Results */}
       <section className="pb-12 md:pb-20">
         <div className="container-custom">
           <motion.div

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import { SOCIAL_LINKS, PHONE_DISPLAY, TELEGRAM_USERNAME, EMAIL } from '@/constants/links';
-import { EmailIcon, TelegramIcon, PhoneIcon, WhatsAppIcon, ViberIcon } from '@/components/icons';
+import { SOCIAL_LINKS, PHONE_DISPLAY, EMAIL } from '@/constants/links';
+import { EmailIcon, PhoneIcon, WhatsAppIcon, ViberIcon } from '@/components/icons';
 
 const footerLinks = {
   services: [
@@ -19,7 +19,7 @@ const footerLinks = {
 export function Footer() {
   return (
     <footer className="bg-card border-t border-border">
-      <div className="container-custom section-spacing">
+      <div className="container-custom pt-10 sm:pt-16 md:pt-24 lg:pt-32">
         {/* Main Footer */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-8">
           {/* Brand */}
@@ -31,10 +31,10 @@ export function Footer() {
                 </span>
               </div>
             </Link>
-            <p className="text-muted-foreground text-md leading-relaxed max-w-xs">
-              Мы создаём сайты, которые превращают посетителей в клиентов.
-              Быстро, современно и масштабируемо.
-            </p>
+            <div className="flex flex-col gap-2 text-muted-foreground text-md leading-relaxed max-w-xs">
+              <p>Создаём сайты, которые превращают посетителей в клиентов. </p>
+              <p>Быстро, современно и масштабируемо.</p>
+            </div>
           </div>
 
           {/* Services */}
@@ -86,12 +86,6 @@ export function Footer() {
                 <a href={SOCIAL_LINKS.email} className="hover:underline">{EMAIL}</a>
               </div>
               <div className="flex items-center gap-2">
-                <TelegramIcon className="shrink-0" />
-                <a href={SOCIAL_LINKS.telegram} target="_blank" rel="noopener noreferrer" className="hover:underline">
-                  {TELEGRAM_USERNAME}
-                </a>
-              </div>
-              <div className="flex items-center gap-2">
                 <PhoneIcon className="shrink-0" />
                 <a href={SOCIAL_LINKS.phone} className="hover:underline">{PHONE_DISPLAY}</a>
               </div>
@@ -112,24 +106,10 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-8 md:mt-16 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="mt-8 md:mt-16 py-6 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-muted-foreground text-md">
             © {new Date().getFullYear()} Vector Studio. Все права защищены.
           </p>
-          <div className="flex items-center gap-6">
-            <Link
-              to="#"
-              className="text-muted-foreground hover:text-foreground transition-colors text-md"
-            >
-              Политика конфиденциальности
-            </Link>
-            <Link
-              to="#"
-              className="text-muted-foreground hover:text-foreground transition-colors text-md"
-            >
-              Условия использования
-            </Link>
-          </div>
         </div>
       </div>
     </footer>

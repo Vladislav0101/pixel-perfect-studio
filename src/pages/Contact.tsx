@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { EMAIL, PHONE_DISPLAY, SOCIAL_LINKS } from "@/constants/links";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Mail, ArrowRight, CheckCircle, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,13 +18,13 @@ import { z } from "zod";
 import { supabase } from "@/lib/supabaseClient";
 
 const contactSchema = z.object({
-  name: z.string().trim().min(1, "Имя обязательно").max(100, "Имя должно быть менее 100 символов"),
+  name: z.string().trim().min(1, "Укажите ваше имя").max(100, "Имя должно быть менее 100 символов"),
   email: z.string().trim().max(255, "Email должен быть менее 255 символов").optional(),
   phone: z.string().trim().min(1, "Укажите телефон").max(100, "Телефон должен быть менее 100 символов"),
   company: z.string().max(100, "Название компании должно быть менее 100 символов").optional(),
   budget: z.string().trim().min(1, "Укажите примерный бюджет").max(100, "Бюджет должен быть менее 100 символов"),
   service: z.string().trim().min(1, "Укажите интересующую услугу").max(100, "Услуга должна быть менее 100 символов"),
-  message: z.string().trim().min(10, "Пожалуйста, предоставьте больше деталей о вашем проекте").max(2000, "Сообщение должно быть менее 2000 символов").optional(),
+  message: z.string().trim().min(10, "Предоставьте больше деталей о вашем проекте. Начните с одного предложения").max(2000, "Сообщение должно быть менее 2000 символов"),
 });
 
 const services = [
@@ -49,6 +49,13 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
+  const successBlockRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isSubmitted && successBlockRef.current) {
+      successBlockRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [isSubmitted]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -202,7 +209,7 @@ export default function Contact() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               {isSubmitted ? (
-                <div className="h-full flex items-center justify-center">
+                <div ref={successBlockRef} className="h-full flex items-center justify-center">
                   <div className="text-center p-6 md:p-8 rounded-2xl bg-card border border-border">
                     <div className="w-14 md:w-16 h-14 md:h-16 rounded-full bg-primary/20 flex items-center justify-center mx-auto mb-4 md:mb-6">
                       <CheckCircle className="w-7 md:w-8 h-7 md:h-8 text-primary" />
@@ -255,7 +262,7 @@ export default function Contact() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        placeholder="8 (999) 999-99-99"
+                        placeholder="8 (029) 999-99-99"
                         className={errors.phone ? "border-destructive" : ""}
                       />
                       {errors.phone && <p className="text-destructive text-sm mt-1">{errors.phone}</p>}
@@ -333,6 +340,7 @@ export default function Contact() {
                         onChange={handleChange}
                         placeholder="2,000$"
                         type="text"
+                        className={errors.budget ? "border-destructive" : ""}
                       />
                       {errors.budget && <p className="text-destructive text-sm mt-1">{errors.budget}</p>}
                     </div>
