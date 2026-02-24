@@ -17,12 +17,12 @@ const services = [
       "SEO-оптимизированная структура",
     ],
     timeline: "2-4 недели",
-    startingPrice: "0",
+    startingPrice: "Работаем в рамках ваших приоритетов и бюджета.",
   },
   {
     id: "landing",
     title: "Лендинги",
-    description: "Высоко-конверсионные лендинги, разработанные для привлечения лидов и призыву к действиям. Идеально для кампаний.",
+    description: "Высоко-конверсионные лендинги, разработанные для привлечения лидов и призыву к действиям. Идеально для запуска новых продуктов и рекламных кампаний.",
     features: [
       "Дизайн, ориентированный на конверсию",
       "Готовность к A/B тестированию",
@@ -30,7 +30,7 @@ const services = [
       "Быстрая разработка за 1 неделю",
     ],
     timeline: "1 неделя",
-    startingPrice: "0",
+    startingPrice: "Подбираем решение под ваши цели, ресурсы и приоритеты",
   },
   {
     id: "redesign",
@@ -43,7 +43,7 @@ const services = [
       "Сохранение и улучшение SEO",
     ],
     timeline: "2-3 недели",
-    startingPrice: "0",
+    startingPrice: "Формируем рациональный и реализуемый план действий.",
   },
   {
     id: "seo",
@@ -55,8 +55,7 @@ const services = [
       "Улучшение Core Web Vitals",
       "Оптимизация изображений",
     ],
-    timeline: "Постоянно",
-    startingPrice: "0",
+    startingPrice: "Предлагаем оптимальный формат сотрудничества под задачи и бюджет.",
   },
 ];
 
@@ -99,13 +98,12 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
           </div>
 
           <div className="lg:w-64 flex flex-col p-6 rounded-xl bg-muted/50 text-center lg:self-stretch justify-center gap-2">
-            <p className="text-sm text-muted-foreground mb-2">Подбираем решение под ваши цели, ресурсы и приоритеты</p>
-            {/* <p className="text-2xl font-display font-bold text-primary mb-4">{service.startingPrice}</p> */}
+            <p className="text-sm text-muted-foreground mb-2">{service.startingPrice}</p>
             <div>
               <Button variant="hero" className="w-full mb-2" asChild>
                 <Link to="/contact">Получить предложение</Link>
               </Button>
-              <p className="text-sm text-muted-foreground">Срок: {service.timeline}</p>
+              {service.timeline && <p className="text-sm text-muted-foreground">Срок: {service.timeline}</p>}
             </div>
           </div>
         </div>

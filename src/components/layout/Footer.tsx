@@ -80,7 +80,7 @@ export function Footer() {
             <h4 className="font-display font-semibold text-md uppercase tracking-wider mb-2 md:mb-6 text-foreground">
               Контакты
             </h4>
-            <div className="space-y-2 text-muted-foreground text-md">
+            <div className="space-y-1 md:space-y-3 text-muted-foreground text-md">
               <div className="flex items-center gap-2">
                 <EmailIcon className="shrink-0 text-foreground" />
                 <a href={SOCIAL_LINKS.email} className="hover:underline">{EMAIL}</a>
