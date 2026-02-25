@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { SOCIAL_LINKS, PHONE_DISPLAY, EMAIL } from '@/constants/links';
+import { trackMetaPixelContact, trackMetaPixelCTAClick } from '@/components/MetaPixel';
 import { EmailIcon, PhoneIcon, WhatsAppIcon, ViberIcon } from '@/components/icons';
 
 const footerLinks = {
@@ -48,6 +49,7 @@ export function Footer() {
                   <Link
                     to={link.href}
                     className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-md"
+                    onClick={() => trackMetaPixelCTAClick(`Footer: ${link.name}`)}
                   >
                     {link.name}
                   </Link>
@@ -67,6 +69,7 @@ export function Footer() {
                   <Link
                     to={link.href}
                     className="text-muted-foreground hover:text-foreground transition-colors duration-300 text-md"
+                    onClick={() => (link.href === '/contact' ? trackMetaPixelContact() : trackMetaPixelCTAClick(`Footer: ${link.name}`))}
                   >
                     {link.name}
                   </Link>

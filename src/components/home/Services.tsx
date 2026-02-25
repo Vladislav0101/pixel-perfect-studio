@@ -3,6 +3,7 @@ import { useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Code, Palette, Zap, Search, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { trackMetaPixelCTAClick } from '@/components/MetaPixel';
 
 const services = [
   {
@@ -70,6 +71,7 @@ export function Services() {
               <Link
                 to={service.link}
                 className="group block p-6 md:p-8 rounded-xl bg-background border border-border card-hover h-full"
+                onClick={() => trackMetaPixelCTAClick(`Узнать больше: ${service.title}`)}
               >
                 <div className="flex items-start gap-5">
                   <div className="w-10 md:w-14 h-10 md:h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors duration-300">

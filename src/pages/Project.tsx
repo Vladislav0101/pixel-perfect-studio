@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link, useParams, Navigate } from 'react-router-dom';
 import { Layout } from '@/components/layout/Layout';
+import { trackMetaPixelViewContent } from '@/components/MetaPixel';
 import { ArrowLeft, ArrowRight, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -56,6 +57,12 @@ export default function Project() {
     updateCurrent(api);
     api.on('select', () => updateCurrent(api));
   }, [api, updateCurrent]);
+
+  useEffect(() => {
+    if (project) {
+      trackMetaPixelViewContent(project.title, 'project');
+    }
+  }, [project]);
 
   if (!project) {
     return <Navigate to="/portfolio" replace />;

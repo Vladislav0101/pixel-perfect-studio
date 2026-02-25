@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { trackMetaPixelLead } from "@/components/MetaPixel";
 import { z } from "zod";
 import { supabase } from "@/lib/supabaseClient";
 
@@ -71,6 +72,7 @@ export default function Contact() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    trackMetaPixelLead();
     e.preventDefault();
     setIsSubmitting(true);
     setErrors({});

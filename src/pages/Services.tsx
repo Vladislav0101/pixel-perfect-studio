@@ -1,9 +1,10 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Check, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { trackMetaPixelContact, trackMetaPixelViewContent } from "@/components/MetaPixel";
 
 const services = [
   {
@@ -70,6 +71,12 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
+  useEffect(() => {
+    if (isInView) {
+      trackMetaPixelViewContent(service.title, 'service');
+    }
+  }, [isInView, service.title]);
+
   return (
     <motion.div
       ref={ref}
@@ -100,7 +107,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
           <div className="lg:w-64 flex flex-col p-6 rounded-xl bg-muted/50 text-center lg:self-stretch justify-center gap-2">
             <p className="text-sm text-muted-foreground mb-2">{service.startingPrice}</p>
             <div>
-              <Button variant="hero" className="w-full mb-2" asChild>
+              <Button variant="hero" className="w-full mb-2" asChild onClick={trackMetaPixelContact}>
                 <Link to="/contact">Получить предложение</Link>
               </Button>
               {service.timeline && <p className="text-sm text-muted-foreground">Срок: {service.timeline}</p>}
@@ -179,7 +186,7 @@ export default function ServicesPage() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-center mt-8 md:mt-12"
           >
-            <Button variant="hero" size="xl" asChild className="w-full md:w-auto">
+            <Button variant="hero" size="xl" asChild className="w-full md:w-auto" onClick={trackMetaPixelContact}>
               <Link to="/contact">
                 Обсудить ваш проект
                 <ArrowRight className="ml-2" />

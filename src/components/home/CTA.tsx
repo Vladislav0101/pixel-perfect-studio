@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { trackMetaPixelContact, trackMetaPixelCTAClick } from '@/components/MetaPixel';
 
 interface SecondaryButton {
   text: string;
@@ -47,6 +48,7 @@ export function CTA({ className, title, description, buttonText, secondaryButton
                 size="xl"
                 className="w-full md:w-auto bg-primary-foreground text-primary hover:bg-primary-foreground/90"
                 asChild
+                onClick={trackMetaPixelContact}
               >
                 <Link to="/contact">
                   {buttonText}
@@ -59,6 +61,7 @@ export function CTA({ className, title, description, buttonText, secondaryButton
                   size="xl"
                   className="w-full md:w-auto border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
                   asChild
+                  onClick={() => trackMetaPixelCTAClick(secondaryButton.text)}
                 >
                   <Link to={secondaryButton.href}>{secondaryButton.text}</Link>
                 </Button>

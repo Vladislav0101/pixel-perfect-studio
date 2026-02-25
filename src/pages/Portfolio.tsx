@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { Layout } from '@/components/layout/Layout';
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { trackMetaPixelCTAClick } from '@/components/MetaPixel';
 import { CTA } from '@/components/home/CTA';
 import { projects } from '@/data/projects';
 
@@ -24,7 +25,7 @@ function ProjectCard({
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className=""
     >
-      <Link to={`/portfolio/${project.slug}`}>
+      <Link to={`/portfolio/${project.slug}`} onClick={() => trackMetaPixelCTAClick(`Портфолио: ${project.title}`)}>
         <div className="rounded-2xl overflow-hidden bg-card border border-border card-hover h-full flex flex-col">
           {/* Image placeholder */}
           <div

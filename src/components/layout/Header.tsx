@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { trackMetaPixelContact } from '@/components/MetaPixel';
 
 const navigation = [
   { name: 'Главная', href: '/' },
@@ -77,7 +78,7 @@ export function Header() {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button variant="light" size="m" asChild className="rounded-full">
+            <Button variant="light" size="m" asChild className="rounded-full" onClick={trackMetaPixelContact}>
               <Link to="/contact">Узнать цену</Link>
             </Button>
           </div>
@@ -158,6 +159,7 @@ export function Header() {
                     size="lg"
                     className="w-full mt-4"
                     asChild
+                    onClick={trackMetaPixelContact}
                   >
                     <Link to="/contact">Получить предложение</Link>
                   </Button>
