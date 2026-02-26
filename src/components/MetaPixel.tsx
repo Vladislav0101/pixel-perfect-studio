@@ -59,32 +59,6 @@ export function MetaPixel() {
     window.fbq('track', 'PageView');
   }, [location.pathname]);
 
-  // Track Scroll Depth (50%, 100%)
-  useEffect(() => {
-    if (!PIXEL_ID || typeof window.fbq !== 'function') return;
-
-    const thresholds = { 50: false, 100: false };
-
-    const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (docHeight <= 0) return;
-      const percent = Math.round((scrollTop / docHeight) * 100);
-
-      if (percent >= 50 && !thresholds[50]) {
-        thresholds[50] = true;
-        window.fbq!('trackCustom', 'Scroll_Depth', { depth: 50 });
-      }
-      if (percent >= 100 && !thresholds[100]) {
-        thresholds[100] = true;
-        window.fbq!('trackCustom', 'Scroll_Depth', { depth: 100 });
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [location.pathname]);
-
   return null;
 }
 
