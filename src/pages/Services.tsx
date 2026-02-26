@@ -4,7 +4,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Check, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { trackMetaPixelContact, trackMetaPixelViewContent } from "@/components/MetaPixel";
+import { trackMetaPixelToContact } from "@/components/MetaPixel";
 
 const services = [
   {
@@ -69,20 +69,13 @@ const addons = [
 
 function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
-  useEffect(() => {
-    if (isInView) {
-      trackMetaPixelViewContent(service.title, 'service');
-    }
-  }, [isInView, service.title]);
 
   return (
     <motion.div
       ref={ref}
       id={service.id}
       initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="scroll-mt-32"
     >
@@ -107,7 +100,7 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
           <div className="lg:w-64 flex flex-col p-6 rounded-xl bg-muted/50 text-center lg:self-stretch justify-center gap-2">
             <p className="text-sm text-muted-foreground mb-2">{service.startingPrice}</p>
             <div>
-              <Button variant="hero" className="w-full mb-2" asChild onClick={trackMetaPixelContact}>
+              <Button variant="hero" className="w-full mb-2" asChild onClick={() => trackMetaPixelToContact(`Services:${service.title}`)}>
                 <Link to="/contact">Получить предложение</Link>
               </Button>
               {service.timeline && <p className="text-sm text-muted-foreground">Срок: {service.timeline}</p>}
@@ -186,7 +179,7 @@ export default function ServicesPage() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-center mt-8 md:mt-12"
           >
-            <Button variant="hero" size="xl" asChild className="w-full md:w-auto" onClick={trackMetaPixelContact}>
+            <Button variant="hero" size="xl" asChild className="w-full md:w-auto" onClick={() => trackMetaPixelToContact('Services:Addons')}>
               <Link to="/contact">
                 Обсудить ваш проект
                 <ArrowRight className="ml-2" />

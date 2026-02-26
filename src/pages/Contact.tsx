@@ -17,6 +17,7 @@ import { useToast } from "@/hooks/use-toast";
 import { trackMetaPixelLead } from "@/components/MetaPixel";
 import { z } from "zod";
 import { supabase } from "@/lib/supabaseClient";
+import { cn } from "@/lib/utils";
 
 const contactSchema = z.object({
   name: z.string().trim().min(1, "Укажите ваше имя").max(100, "Имя должно быть менее 100 символов"),
@@ -72,7 +73,6 @@ export default function Contact() {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    trackMetaPixelLead();
     e.preventDefault();
     setIsSubmitting(true);
     setErrors({});
@@ -106,12 +106,14 @@ export default function Contact() {
         throw insertError;
       }
 
+      trackMetaPixelLead();
       setIsSubmitted(true);
       toast({
         title: "Сообщение отправлено!",
         description: "Мы свяжемся с вами в течение 24 часов.",
       });
     } catch (error) {
+      console.log('error', error);
       if (error instanceof z.ZodError) {
         const newErrors: Record<string, string> = {};
         error.errors.forEach((err) => {
@@ -312,10 +314,15 @@ export default function Contact() {
                       >
                         <SelectTrigger
                           id="service"
-                          className="h-11 w-full rounded-lg border border-input bg-background px-4 py-2 text-sm font-normal focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 [&>span]:line-clamp-1"
+                          className={cn(
+                            "h-11 w-full rounded-lg border border-input bg-background px-4 py-2 text-sm font-normal focus:ring-0 focus:ring-offset-0 focus-visible:ring-0 focus-visible:ring-offset-0 [&>span]:line-clamp-1",
+                            errors.service ? "border-destructive" : "")
+                          }
                         >
                           <SelectValue placeholder="Выберите услугу..." />
                         </SelectTrigger>
+                        {errors.service && <p className="text-destructive text-sm mt-1">{errors.service}</p>}
+
                         <SelectContent className="rounded-lg border border-border bg-popover shadow-lg">
                           {services.map((service) => (
                             <SelectItem

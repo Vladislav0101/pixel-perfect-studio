@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ChevronDown, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { trackMetaPixelContact, trackMetaPixelCTAClick } from '@/components/MetaPixel';
+import { trackMetaPixelToContact, trackMetaPixelCTAClick } from '@/components/MetaPixel';
 import { useEffect, useState } from 'react';
 
 export function Hero() {
@@ -81,14 +81,14 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="flex flex-col md:flex-row items-center justify-center gap-4"
           >
-            <Button variant="hero" className='w-full md:w-auto' size="xl" asChild onClick={trackMetaPixelContact}>
+            <Button variant="hero" className='w-full md:w-auto' size="xl" asChild onClick={() => trackMetaPixelToContact('Hero')}>
               <Link to="/contact">
                 <span className='hidden md:block'>Получить бесплатное предложение</span>
                 <span className='block md:hidden'>Бесплатное предложение</span>
                 <ArrowRight className="ml-2" />
               </Link>
             </Button>
-            <Button className='w-full md:w-auto' variant="heroOutline" size="xl" asChild onClick={() => trackMetaPixelCTAClick('Посмотреть наши работы')}>
+            <Button className='w-full md:w-auto' variant="heroOutline" size="xl" asChild onClick={() => trackMetaPixelCTAClick('Hero to Portfolio')}>
               <Link to="/portfolio">Посмотреть наши работы</Link>
             </Button>
           </motion.div>

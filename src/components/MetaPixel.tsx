@@ -96,9 +96,12 @@ export function trackMetaPixelLead() {
 }
 
 /** Contact — клик по CTA «связаться» (Узнать цену, Получить предложение и т.п.) */
-export function trackMetaPixelContact() {
+export function trackMetaPixelToContact(resource: string, page?: string) {
   if (typeof window.fbq === 'function') {
-    window.fbq('track', 'Contact');
+    window.fbq('track', 'Contact', {
+      content_name: resource,
+      ...(page && { page }),
+    });
   }
 }
 

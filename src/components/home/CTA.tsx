@@ -1,9 +1,9 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { trackMetaPixelContact, trackMetaPixelCTAClick } from '@/components/MetaPixel';
+import { trackMetaPixelToContact, trackMetaPixelCTAClick } from '@/components/MetaPixel';
 
 interface SecondaryButton {
   text: string;
@@ -20,6 +20,7 @@ interface CTAProps {
 
 export function CTA({ className, title, description, buttonText, secondaryButton }: CTAProps) {
   const ref = useRef(null);
+  const location = useLocation();
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
@@ -48,7 +49,7 @@ export function CTA({ className, title, description, buttonText, secondaryButton
                 size="xl"
                 className="w-full md:w-auto bg-primary-foreground text-primary hover:bg-primary-foreground/90"
                 asChild
-                onClick={trackMetaPixelContact}
+                onClick={() => trackMetaPixelToContact('CTA', location.pathname)}
               >
                 <Link to="/contact">
                   {buttonText}
