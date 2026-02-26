@@ -1,23 +1,23 @@
-import flats1Image from '@/assets/flats/1.png';
-import flats2Image from '@/assets/flats/2.png';
-import flats3Image from '@/assets/flats/3.png';
-import flats4Image from '@/assets/flats/4.png';
-import flats5Image from '@/assets/flats/5.png';
+import flats1Image from '@/assets/flats/1.webp';
+import flats2Image from '@/assets/flats/2.webp';
+import flats3Image from '@/assets/flats/3.webp';
+import flats4Image from '@/assets/flats/4.webp';
+import flats5Image from '@/assets/flats/5.webp';
 
-import logistic1Image from '@/assets/logistic/1.png';
-import logistic2Image from '@/assets/logistic/2.png';
-import logistic3Image from '@/assets/logistic/3.png';
-import logistic4Image from '@/assets/logistic/4.png';
-import logistic5Image from '@/assets/logistic/5.png';
+import logistic1Image from '@/assets/logistic/1.webp';
+import logistic2Image from '@/assets/logistic/2.webp';
+import logistic3Image from '@/assets/logistic/3.webp';
+import logistic4Image from '@/assets/logistic/4.webp';
+import logistic5Image from '@/assets/logistic/5.webp';
 
-import clothes1Image from '@/assets/clothes/1.png';
-import clothes2Image from '@/assets/clothes/2.png';
-import clothes3Image from '@/assets/clothes/3.png';
-import clothes4Image from '@/assets/clothes/4.png';
-import clothes5Image from '@/assets/clothes/5.png';
-import clothes6Image from '@/assets/clothes/6.png';
-import clothes7Image from '@/assets/clothes/7.png';
-import clothes8Image from '@/assets/clothes/8.png';
+import clothes1Image from '@/assets/clothes/1.webp';
+import clothes2Image from '@/assets/clothes/2.webp';
+import clothes3Image from '@/assets/clothes/3.webp';
+import clothes4Image from '@/assets/clothes/4.webp';
+import clothes5Image from '@/assets/clothes/5.webp';
+import clothes6Image from '@/assets/clothes/6.webp';
+import clothes7Image from '@/assets/clothes/7.webp';
+import clothes8Image from '@/assets/clothes/8.webp';
 
 export interface ProjectFunctionalityBlock {
   title: string;

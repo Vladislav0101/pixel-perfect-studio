@@ -136,26 +136,26 @@ export default function Project() {
                   className="pl-2 md:pl-4 basis-[85%] md:basis-[80%] md:basis-[75%] lg:basis-[70%]"
                 >
                   <div
-                    className={`aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-card ${slide.type === 'gradient' ? slide.class : ''
+                    className={`aspect-[16/10] rounded-2xl overflow-hidden border border-border bg-card flex items-center justify-center ${slide.type === 'gradient' ? slide.class : ''
                       }`}
                     style={
-                      slide.type === 'image'
-                        ? {
-                          backgroundImage: `url(${slide.url})`,
-                          backgroundSize: 'contain',
-                          backgroundPosition: 'center',
-                          backgroundRepeat: 'no-repeat',
-                          backgroundColor: project.backgroundColor,
-                        }
+                      slide.type === 'image' && project.backgroundColor
+                        ? { backgroundColor: project.backgroundColor }
                         : undefined
                     }
                   >
-                    {slide.type === 'gradient' && (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <span className="font-display font-bold text-6xl text-foreground/10">
-                          {project.title.charAt(0)}
-                        </span>
-                      </div>
+                    {slide.type === 'image' ? (
+                      <img
+                        src={slide.url}
+                        alt={`${project.title} — слайд ${index + 1}`}
+                        loading={index === 0 ? 'eager' : 'lazy'}
+                        decoding="async"
+                        className="w-full h-full object-contain object-center"
+                      />
+                    ) : (
+                      <span className="font-display font-bold text-6xl text-foreground/10">
+                        {project.title.charAt(0)}
+                      </span>
                     )}
                   </div>
                 </CarouselItem>
